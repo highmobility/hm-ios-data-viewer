@@ -12,7 +12,40 @@
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
 		207718BE2099EE8B00518AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207718BD2099EE8B00518AAD /* Assets.xcassets */; };
 		207718C12099EE8B00518AAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BF2099EE8B00518AAD /* LaunchScreen.storyboard */; };
+		2085DC04209ADD46009E28C3 /* TheDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */; };
+		2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085DC05209AE14A009E28C3 /* ConnectionState.swift */; };
+		20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; };
+		20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; };
+		20B147A02099F06F00895CCC /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; };
+		20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; };
+		20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; };
+		20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		20B147AA2099F5E300895CCC /* TheDeviceInitialiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */; };
+		20B147AC2099F73000895CCC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147AB2099F73000895CCC /* Result.swift */; };
+		20B147AE209A22EB00895CCC /* TheDeviceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		20B147A72099F06F00895CCC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */,
+				20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */,
+				20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */,
+				20B147A02099F06F00895CCC /* CommonCrypto.framework in Embed Frameworks */,
+				20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +55,16 @@
 		207718BD2099EE8B00518AAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		207718C02099EE8B00518AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		207718C22099EE8B00518AAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceManager.swift; sourceTree = "<group>"; };
+		2085DC05209AE14A009E28C3 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		20B147982099F06D00895CCC /* HMUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = "<group>"; };
+		20B147992099F06D00895CCC /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
+		20B1479A2099F06E00895CCC /* HMCryptoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = "<group>"; };
+		20B1479B2099F06E00895CCC /* AutoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AutoAPI.framework; sourceTree = "<group>"; };
+		20B1479C2099F06F00895CCC /* HMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMKit.framework; sourceTree = "<group>"; };
+		20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceInitialiser.swift; sourceTree = "<group>"; };
+		20B147AB2099F73000895CCC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +72,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */,
+				20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */,
+				20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */,
+				20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */,
+				20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +86,11 @@
 		207718AA2099EE8900518AAD = {
 			isa = PBXGroup;
 			children = (
+				20B1479B2099F06E00895CCC /* AutoAPI.framework */,
+				20B147992099F06D00895CCC /* CommonCrypto.framework */,
+				20B1479A2099F06E00895CCC /* HMCryptoKit.framework */,
+				20B1479C2099F06F00895CCC /* HMKit.framework */,
+				20B147982099F06D00895CCC /* HMUtilities.framework */,
 				207718B52099EE8A00518AAD /* Data Viewer */,
 				207718B42099EE8A00518AAD /* Products */,
 			);
@@ -54,14 +107,51 @@
 		207718B52099EE8A00518AAD /* Data Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				207718B62099EE8A00518AAD /* AppDelegate.swift */,
-				207718B82099EE8A00518AAD /* ViewController.swift */,
-				207718BA2099EE8A00518AAD /* Main.storyboard */,
-				207718BD2099EE8B00518AAD /* Assets.xcassets */,
-				207718BF2099EE8B00518AAD /* LaunchScreen.storyboard */,
-				207718C22099EE8B00518AAD /* Info.plist */,
+				207718C92099EE9F00518AAD /* Resources */,
+				207718C82099EE9400518AAD /* Sources */,
 			);
 			path = "Data Viewer";
+			sourceTree = "<group>";
+		};
+		207718C82099EE9400518AAD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2085DC07209AE153009E28C3 /* Enums */,
+				2085DC08209AE15D009E28C3 /* The Device */,
+				207718B62099EE8A00518AAD /* AppDelegate.swift */,
+				207718B82099EE8A00518AAD /* ViewController.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		207718C92099EE9F00518AAD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				207718BD2099EE8B00518AAD /* Assets.xcassets */,
+				207718C22099EE8B00518AAD /* Info.plist */,
+				207718BF2099EE8B00518AAD /* LaunchScreen.storyboard */,
+				207718BA2099EE8A00518AAD /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2085DC07209AE153009E28C3 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				2085DC05209AE14A009E28C3 /* ConnectionState.swift */,
+				20B147AB2099F73000895CCC /* Result.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		2085DC08209AE15D009E28C3 /* The Device */ = {
+			isa = PBXGroup;
+			children = (
+				20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */,
+				20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */,
+				2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */,
+			);
+			path = "The Device";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +164,7 @@
 				207718AF2099EE8A00518AAD /* Sources */,
 				207718B02099EE8A00518AAD /* Frameworks */,
 				207718B12099EE8A00518AAD /* Resources */,
+				20B147A72099F06F00895CCC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,6 +227,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				207718B92099EE8A00518AAD /* ViewController.swift in Sources */,
+				2085DC04209ADD46009E28C3 /* TheDeviceManager.swift in Sources */,
+				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
+				20B147AE209A22EB00895CCC /* TheDeviceDelegate.swift in Sources */,
+				20B147AC2099F73000895CCC /* Result.swift in Sources */,
+				20B147AA2099F5E300895CCC /* TheDeviceInitialiser.swift in Sources */,
 				207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,7 +378,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F42CFRE556;
-				INFOPLIST_FILE = "Data Viewer/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Data Viewer/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -300,7 +400,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F42CFRE556;
-				INFOPLIST_FILE = "Data Viewer/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Data Viewer/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
