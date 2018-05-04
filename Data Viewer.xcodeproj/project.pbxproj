@@ -13,8 +13,11 @@
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
 		207718BE2099EE8B00518AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207718BD2099EE8B00518AAD /* Assets.xcassets */; };
 		207718C12099EE8B00518AAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BF2099EE8B00518AAD /* LaunchScreen.storyboard */; };
-		2085DC04209ADD46009E28C3 /* TheDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */; };
+		207DBAF2209C89C800134294 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DBAF1209C89C800134294 /* NavigationController.swift */; };
+		207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */; };
+		207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */; };
 		2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085DC05209AE14A009E28C3 /* ConnectionState.swift */; };
+		2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */; };
 		20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; };
 		20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; };
@@ -25,9 +28,7 @@
 		20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; };
 		20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		20B147AA2099F5E300895CCC /* TheDeviceInitialiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */; };
 		20B147AC2099F73000895CCC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147AB2099F73000895CCC /* Result.swift */; };
-		20B147AE209A22EB00895CCC /* TheDeviceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,16 +58,17 @@
 		207718BD2099EE8B00518AAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		207718C02099EE8B00518AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		207718C22099EE8B00518AAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceManager.swift; sourceTree = "<group>"; };
+		207DBAF1209C89C800134294 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdatable.swift; sourceTree = "<group>"; };
+		207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		2085DC05209AE14A009E28C3 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugTree+Extensions.swift"; sourceTree = "<group>"; };
 		20B147982099F06D00895CCC /* HMUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = "<group>"; };
 		20B147992099F06D00895CCC /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
 		20B1479A2099F06E00895CCC /* HMCryptoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = "<group>"; };
 		20B1479B2099F06E00895CCC /* AutoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AutoAPI.framework; sourceTree = "<group>"; };
 		20B1479C2099F06F00895CCC /* HMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMKit.framework; sourceTree = "<group>"; };
-		20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceInitialiser.swift; sourceTree = "<group>"; };
 		20B147AB2099F73000895CCC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDeviceDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				2085DC07209AE153009E28C3 /* Enums */,
-				2085DC08209AE15D009E28C3 /* The Device */,
+				207DBAF7209CA77D00134294 /* Others */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
+				207DBAF1209C89C800134294 /* NavigationController.swift */,
 				200D7089209B01D900EF7CE1 /* TableViewController.swift */,
 				207718B82099EE8A00518AAD /* ViewController.swift */,
 			);
@@ -138,6 +141,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		207DBAF7209CA77D00134294 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */,
+				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
+				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		2085DC07209AE153009E28C3 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,16 +158,6 @@
 				20B147AB2099F73000895CCC /* Result.swift */,
 			);
 			path = Enums;
-			sourceTree = "<group>";
-		};
-		2085DC08209AE15D009E28C3 /* The Device */ = {
-			isa = PBXGroup;
-			children = (
-				20B147AD209A22EB00895CCC /* TheDeviceDelegate.swift */,
-				20B147A92099F5E300895CCC /* TheDeviceInitialiser.swift */,
-				2085DC03209ADD46009E28C3 /* TheDeviceManager.swift */,
-			);
-			path = "The Device";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,12 +233,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				207718B92099EE8A00518AAD /* ViewController.swift in Sources */,
-				2085DC04209ADD46009E28C3 /* TheDeviceManager.swift in Sources */,
 				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
 				200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */,
-				20B147AE209A22EB00895CCC /* TheDeviceDelegate.swift in Sources */,
+				207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */,
+				207DBAF2209C89C800134294 /* NavigationController.swift in Sources */,
+				2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */,
+				207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */,
 				20B147AC2099F73000895CCC /* Result.swift in Sources */,
-				20B147AA2099F5E300895CCC /* TheDeviceInitialiser.swift in Sources */,
 				207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,33 +14,37 @@ class TableViewController: UITableViewController {
 
     static let identifier = "TableViewControllerID"
 
-    var debugTree: DebugTree?
+    private var debugTree: AutoAPI.DebugTree?
 
 
-    // MARK: Methods
+    // MARK: IBOutlets
 
-    func receivedDebugTree(_ debugTree: DebugTree) {
-        guard (self.debugTree?.label == debugTree.label) || (self.debugTree == nil) else {
-            return
-        }
+    @IBOutlet var refreshButton: UIBarButtonItem!
 
-        self.debugTree = debugTree
-        self.navigationItem.title = debugTree.label
 
-        tableView.reloadData()
+    // MARK: IBActions
+
+    @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
+        connectionViewController?.refreshVehicleStatus()
     }
 
 
     // MARK: UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return groups.count
+        guard let debugTree = debugTree else {
+            return 0
+        }
+
+        return groups(debugTree).count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let debugTree = groups[section]
+        guard let debugTree = debugTree else {
+            return 0
+        }
 
-        switch debugTree {
+        switch groups(debugTree)[section] {
         case .leaf:
             return 1
 
@@ -73,7 +77,11 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let debugTree = groups[section]
+        guard var debugTree = debugTree else {
+            return nil
+        }
+
+        debugTree = groups(debugTree)[section]
 
         switch debugTree {
         case .leaf:
@@ -98,58 +106,107 @@ class TableViewController: UITableViewController {
             return
         }
 
-        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerID") as? TableViewController else {
-            return
+        displaySubController(node: node)
+    }
+}
+
+extension TableViewController: DeviceUpdatable {
+
+    func deviceChanged(to result: Result<ConnectionState>) {
+        // Naah
+    }
+
+    func deviceReceived(debugTree: AutoAPI.DebugTree) {
+        if isThisControllersDebugTree(debugTree) {
+            matchingDebugTreeReceived(debugTree)
         }
+        else if let nodes = debugTree.nodes {
+            let sub2Nodes = nodes.reduce(nodes) { $0 + ($1.nodes ?? []) }
 
-        controller.receivedDebugTree(node)
+            guard let matchingNode = sub2Nodes.first(where: { self.isThisControllersDebugTree($0) }) else {
+                return sub2Nodes.forEach { self.deviceReceived(debugTree: $0) }
+            }
 
-        navigationController?.pushViewController(controller, animated: true)
+            matchingDebugTreeReceived(matchingNode)
+        }
     }
 }
 
 private extension TableViewController {
 
-    var groups: [DebugTree] {
-        guard let debugTree = debugTree else {
-            return []
-        }
-
-        guard case .node(label: _, nodes: var nodes) = debugTree else {
-            return []
-        }
-
-        nodes = nodes.filter { !$0.label.hasPrefix("*") }
-
-        // Filter to sub-groups
-        let properties: [DebugTree] = nodes.compactMap {
-            guard case .leaf = $0 else {
-                return nil
+    var groups: (AutoAPI.DebugTree) -> [AutoAPI.DebugTree] {
+        return {
+            guard let nodes = $0.nodes?.filter({ !$0.label.hasPrefix("*") }) else {
+                return []
             }
 
-            return $0
-        }
+            // Extract different "types" of values (just 2 atm)
+            let properties: [AutoAPI.DebugTree] = nodes.compactMap {
+                guard case .leaf = $0 else {
+                    return nil
+                }
 
-        let subNodes: [DebugTree] = nodes.compactMap {
-            guard case .node = $0 else {
-                return nil
+                return $0
             }
 
-            return $0
+            let subNodes: [AutoAPI.DebugTree] = nodes.compactMap {
+                guard case .node = $0 else {
+                    return nil
+                }
+
+                return $0
+            }
+
+            var groups: [AutoAPI.DebugTree] = []
+
+            // Check what to add
+            if properties.count > 0 {
+                groups.append(AutoAPI.DebugTree.node(label: "Properties", nodes: properties))
+            }
+
+            if subNodes.count > 0 {
+                groups.append(contentsOf: subNodes)
+            }
+
+            // Return alphabetically
+            return groups.sorted { $0.label < $1.label }
         }
-
-        let combined = [DebugTree.node(label: "Properties", nodes: properties)] + subNodes
-
-        return combined.sorted { $0.label < $1.label }
     }
 
-    var node: (IndexPath) -> DebugTree? {
+    var isThisControllersDebugTree: (AutoAPI.DebugTree) -> Bool {
         return {
-            guard case .node(label: _, nodes: let nodes) = self.groups[$0.section] else {
-                return nil
+            return (self.debugTree == nil) || (self.debugTree?.label == $0.label)
+        }
+    }
+
+    var node: (IndexPath) -> AutoAPI.DebugTree? {
+        return {
+            guard let debugTree = self.debugTree,
+                let nodes = self.groups(debugTree)[$0.section].nodes else {
+                    return nil
             }
 
             return nodes[$0.row]
         }
+    }
+
+
+    // MARK: Methods
+
+    func displaySubController(node: AutoAPI.DebugTree) {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerID") as? TableViewController else {
+            return
+        }
+
+        controller.deviceReceived(debugTree: node)
+
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func matchingDebugTreeReceived(_ node: AutoAPI.DebugTree) {
+        debugTree = node
+
+        navigationItem.title = node.label
+        tableView.reloadData()
     }
 }

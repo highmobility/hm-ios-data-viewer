@@ -10,14 +10,7 @@ import AutoAPI
 import UIKit
 
 
-class ViewController: UIViewController, TheDeviceInitialiser, TheDeviceManager {
-
-    // MARK: TheDeviceInitialiser
-
-    var vehicleSerial: Data? = nil
-
-
-    // MARK: IBOutlets
+class ViewController: UIViewController {
 
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var connectionMethodSegment: UISegmentedControl!
@@ -27,13 +20,26 @@ class ViewController: UIViewController, TheDeviceInitialiser, TheDeviceManager {
     // MARK: IBActions
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
-        if connectionMethodSegment.selectedSegmentIndex == 0 {
+        if isBluetoothSelected {
             enableInteractions(false)
-            startBluetoothBroadcasting()
+            
+            do {
+                try masterController?.startBluetoothBroadcasting()
+            }
+            catch {
+                displayText("Failed to start Bluetooth broadcasting: \(error)")
+            }
         }
         else {
-            sendInitialCommand(usingBluetooth: false)
+            masterController?.refreshVehicleStatus(usingBluetooth: false)
         }
+    }
+
+
+    // MARK: Methods
+
+    func refreshVehicleStatus() {
+        masterController?.refreshVehicleStatus(usingBluetooth: isBluetoothSelected)
     }
 
 
@@ -44,39 +50,29 @@ class ViewController: UIViewController, TheDeviceInitialiser, TheDeviceManager {
 
         displayText("Initialising device and downloading Access Certificates")
         enableInteractions(false)
-        initaliseTheDevice()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        disconnectBluetooth()
+        masterController?.disconnectBluetooth()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let tableViewController = segue.destination as? TableViewController,
-            let debugTree = sender as? DebugTree else {
+        // Send the (tableview-) controller the latest "data"
+        guard let deviceUpdatable = segue.destination as? DeviceUpdatable,
+            let debugTree = sender as? AutoAPI.DebugTree else {
                 return
         }
 
-        tableViewController.receivedDebugTree(debugTree)
+        deviceUpdatable.deviceReceived(debugTree: debugTree)
     }
 }
 
-extension ViewController: TheDeviceDelegate {
+extension ViewController: DeviceUpdatable {
 
-    func theDevice(commandReceived bytes: [UInt8]) {
-        guard let command = AutoAPI.parseBinary(bytes) else {
-            return displayText("Failed to parse AutoAPI command")
-        }
-
-        OperationQueue.main.addOperation {
-            self.performSegue(withIdentifier: "showTableViewController", sender: command.debugTree)
-        }
-    }
-
-    func theDevice(changed to: Result<ConnectionState>) {
-        switch to {
+    func deviceChanged(to result: Result<ConnectionState>) {
+        switch result {
         case .failure(let text):
             displayText(text)
 
@@ -89,6 +85,7 @@ extension ViewController: TheDeviceDelegate {
             case .disconnected:
                 displayText("Disconnected")
                 enableInteractions(true)
+                popToRootViewController()
 
             case .broadcasting(let name):
                 displayText("Broadcasting... \(name)")
@@ -98,13 +95,29 @@ extension ViewController: TheDeviceDelegate {
 
             case .authenticated:
                 displayText("Authenticated, sending command...")
-                sendInitialCommand(usingBluetooth: true)
+                masterController?.refreshVehicleStatus(usingBluetooth: true)
             }
         }
+    }
+
+    func deviceReceived(debugTree: AutoAPI.DebugTree) {
+        // Push the 1st TableViewController if none present
+        guard let count = navigationController?.viewControllers.count, count == 1 else {
+            return
+        }
+
+        performSegue(withIdentifier: "showTableViewController", sender: debugTree)
     }
 }
 
 private extension ViewController {
+
+    var isBluetoothSelected: Bool {
+        return connectionMethodSegment.selectedSegmentIndex == 0
+    }
+
+
+    // MARK: Methods
 
     func displayText(_ text: String) {
         OperationQueue.main.addOperation {
@@ -119,9 +132,13 @@ private extension ViewController {
         }
     }
 
-    func sendInitialCommand(usingBluetooth: Bool) {
-        let command = VehicleStatus.getVehicleStatus
+    func popToRootViewController() {
+        OperationQueue.main.addOperation {
+            guard let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 1 else {
+                return
+            }
 
-        sendCommand(command, usingBluetooth: usingBluetooth)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
 }
