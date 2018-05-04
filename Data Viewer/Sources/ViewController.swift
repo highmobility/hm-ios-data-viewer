@@ -27,7 +27,8 @@ class ViewController: UIViewController, TheDeviceInitialiser, TheDeviceManager {
     // MARK: IBActions
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
-        if isBluetoothSelected {
+        if connectionMethodSegment.selectedSegmentIndex == 0 {
+            enableInteractions(false)
             startBluetoothBroadcasting()
         }
         else {
@@ -41,19 +42,37 @@ class ViewController: UIViewController, TheDeviceInitialiser, TheDeviceManager {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        connectButton.isEnabled = false
-        connectionMethodSegment.isEnabled = false
-
         displayText("Initialising device and downloading Access Certificates")
+        enableInteractions(false)
         initaliseTheDevice()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        disconnectBluetooth()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let tableViewController = segue.destination as? TableViewController,
+            let debugTree = sender as? DebugTree else {
+                return
+        }
+
+        tableViewController.receivedDebugTree(debugTree)
     }
 }
 
 extension ViewController: TheDeviceDelegate {
 
     func theDevice(commandReceived bytes: [UInt8]) {
-        // TODO: <#code#>
-        print("command received:", bytes.hex)
+        guard let command = AutoAPI.parseBinary(bytes) else {
+            return displayText("Failed to parse AutoAPI command")
+        }
+
+        OperationQueue.main.addOperation {
+            self.performSegue(withIdentifier: "showTableViewController", sender: command.debugTree)
+        }
     }
 
     func theDevice(changed to: Result<ConnectionState>) {
@@ -65,14 +84,11 @@ extension ViewController: TheDeviceDelegate {
             switch state {
             case .initialised:
                 displayText("Ready to use")
-
-                OperationQueue.main.addOperation {
-                    self.connectButton.isEnabled = true
-                    self.connectionMethodSegment.isEnabled = true
-                }
+                enableInteractions(true)
 
             case .disconnected:
                 displayText("Disconnected")
+                enableInteractions(true)
 
             case .broadcasting(let name):
                 displayText("Broadcasting... \(name)")
@@ -82,7 +98,6 @@ extension ViewController: TheDeviceDelegate {
 
             case .authenticated:
                 displayText("Authenticated, sending command...")
-
                 sendInitialCommand(usingBluetooth: true)
             }
         }
@@ -91,21 +106,21 @@ extension ViewController: TheDeviceDelegate {
 
 private extension ViewController {
 
-    var isBluetoothSelected: Bool {
-        return connectionMethodSegment.selectedSegmentIndex == 0
-    }
-
-
-    // MARK: Methods
-
     func displayText(_ text: String) {
         OperationQueue.main.addOperation {
             self.errorLabel.text = text
         }
     }
 
+    func enableInteractions(_ enable: Bool) {
+        OperationQueue.main.addOperation {
+            self.connectButton.isEnabled = enable
+            self.connectionMethodSegment.isEnabled = enable
+        }
+    }
+
     func sendInitialCommand(usingBluetooth: Bool) {
-        let command = Capabilities.getCapabilities
+        let command = VehicleStatus.getVehicleStatus
 
         sendCommand(command, usingBluetooth: usingBluetooth)
     }

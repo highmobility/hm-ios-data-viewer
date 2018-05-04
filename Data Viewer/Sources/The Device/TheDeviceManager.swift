@@ -19,22 +19,15 @@ protocol TheDeviceManager {
     func startBluetoothBroadcasting()
 }
 
-extension TheDeviceManager where Self: TheDeviceDelegate, Self: TheDeviceInitialiser {
-
-    func sendCommand(_ command: [UInt8], usingBluetooth: Bool) {
-        if usingBluetooth {
-            sendBluetoothCommand(command)
-        }
-        else {
-            sendTelematicsCommand(command)
-        }
-    }
-
+extension TheDeviceManager {
 
     func disconnectBluetooth() {
         LocalDevice.shared.disconnect()
         LocalDevice.shared.stopBroadcasting()
     }
+}
+
+extension TheDeviceManager where Self: TheDeviceDelegate {
 
     func startBluetoothBroadcasting() {
         guard LocalDevice.shared.state == .idle else {
@@ -50,6 +43,18 @@ extension TheDeviceManager where Self: TheDeviceDelegate, Self: TheDeviceInitial
         }
         catch {
             theDevice(changed: .failure("Failed to start broadcasting: \(error)"))
+        }
+    }
+}
+
+extension TheDeviceManager where Self: TheDeviceDelegate, Self: TheDeviceInitialiser {
+
+    func sendCommand(_ command: [UInt8], usingBluetooth: Bool) {
+        if usingBluetooth {
+            sendBluetoothCommand(command)
+        }
+        else {
+            sendTelematicsCommand(command)
         }
     }
 }

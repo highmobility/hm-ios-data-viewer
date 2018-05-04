@@ -26,13 +26,21 @@ extension TheDeviceInitialiser where Self: TheDeviceDelegate {
 
         do {
             // Initialise the LocalDevice
-            fatalError("Insert the 'try LocalDevice.shared.initialise...' snippet here")
+            try LocalDevice.shared.initialise(
+                deviceCertificate: "",
+                devicePrivateKey: "",
+                issuerPublicKey: ""
+            )
+
+            guard LocalDevice.shared.certificate != nil else {
+                throw TheDeviceError.missingDeviceCertificate
+            }
 
             // Clean the DB from old certificates
             LocalDevice.shared.resetStorage()
 
             // Download new Access Certificates
-            try Telematics.downloadAccessCertificate(accessToken: "INSERT ACCESS TOKEN") {
+            try Telematics.downloadAccessCertificate(accessToken: "") {
                 switch $0 {
                 case .failure(let failureReason):
                     self.theDevice(changed: .failure("Failed to download Access Certificate for Telematics: \(failureReason)"))
@@ -48,4 +56,9 @@ extension TheDeviceInitialiser where Self: TheDeviceDelegate {
             theDevice(changed: .failure("Initialisation failed: \(error)"))
         }
     }
+}
+
+
+enum TheDeviceError: Error {
+    case missingDeviceCertificate
 }

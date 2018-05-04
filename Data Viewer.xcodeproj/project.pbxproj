@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D7089209B01D900EF7CE1 /* TableViewController.swift */; };
 		207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B62099EE8A00518AAD /* AppDelegate.swift */; };
 		207718B92099EE8A00518AAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ViewController.swift */; };
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207718B62099EE8A00518AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		207718B82099EE8A00518AAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				2085DC07209AE153009E28C3 /* Enums */,
 				2085DC08209AE15D009E28C3 /* The Device */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
+				200D7089209B01D900EF7CE1 /* TableViewController.swift */,
 				207718B82099EE8A00518AAD /* ViewController.swift */,
 			);
 			path = Sources;
@@ -229,6 +232,7 @@
 				207718B92099EE8A00518AAD /* ViewController.swift in Sources */,
 				2085DC04209ADD46009E28C3 /* TheDeviceManager.swift in Sources */,
 				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
+				200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */,
 				20B147AE209A22EB00895CCC /* TheDeviceDelegate.swift in Sources */,
 				20B147AC2099F73000895CCC /* Result.swift in Sources */,
 				20B147AA2099F5E300895CCC /* TheDeviceInitialiser.swift in Sources */,
