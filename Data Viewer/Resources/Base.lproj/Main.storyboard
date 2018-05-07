@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,43 +19,71 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="A9u-SV-RLH">
-                                <rect key="frame" x="87.5" y="264.5" width="200" height="138.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huc-FG-chk">
+                                <rect key="frame" x="0.0" y="381.5" width="375" height="20.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Pi-0R-quv">
+                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huc-FG-chk">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Vk-VW-DSv">
-                                        <rect key="frame" x="0.0" y="50.5" width="200" height="29"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="LR5-mG-KKq"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Bluetooth"/>
-                                            <segment title="Telematics"/>
-                                        </segments>
-                                    </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kP-6D-p4e">
-                                        <rect key="frame" x="0.0" y="108.5" width="200" height="30"/>
-                                        <state key="normal" title="Connect"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                        <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                        <state key="normal" title="CONNECT"/>
                                         <connections>
                                             <action selector="connectButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TNb-uF-4bM"/>
                                         </connections>
                                     </button>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="7u6-Su-5WF">
+                                        <rect key="frame" x="0.0" y="-467" width="375" height="0.0"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0C-OO-c5O">
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="0.0"/>
+                                                <state key="normal" title="Button"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o3-No-gxp">
+                                                <rect key="frame" x="188" y="0.0" width="187" height="0.0"/>
+                                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.095297523961661343" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <state key="normal" title="RESET DB">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="resetDatabaseButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ik6-7p-mIu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Vk-VW-DSv">
+                                <rect key="frame" x="5" y="412" width="365" height="51"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gXP-fo-oiy"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Bluetooth"/>
+                                    <segment title="Telematics"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="A9u-SV-RLH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="7Iu-qU-DI3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="A9u-SV-RLH" secondAttribute="bottom" constant="10" id="GMF-Rd-rks"/>
-                            <constraint firstItem="A9u-SV-RLH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Q2Q-Sv-3gW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A9u-SV-RLH" secondAttribute="trailing" constant="10" id="cyV-0V-LzB"/>
-                            <constraint firstItem="A9u-SV-RLH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jqo-3n-8qQ"/>
-                            <constraint firstItem="A9u-SV-RLH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="roi-28-KLC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8Pi-0R-quv" secondAttribute="trailing" id="4MC-yU-g8G"/>
+                            <constraint firstItem="8Pi-0R-quv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="9jE-vM-3Sn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="huc-FG-chk" secondAttribute="trailing" id="MOc-Jy-sHP"/>
+                            <constraint firstItem="8Pi-0R-quv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QSx-Dd-BkY"/>
+                            <constraint firstItem="huc-FG-chk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="R4B-6k-4xW"/>
+                            <constraint firstItem="8Pi-0R-quv" firstAttribute="top" secondItem="1Vk-VW-DSv" secondAttribute="bottom" constant="5" id="Wfi-sp-h7X"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1Vk-VW-DSv" secondAttribute="trailing" constant="5" id="XQZ-4b-Ao0"/>
+                            <constraint firstItem="1Vk-VW-DSv" firstAttribute="top" secondItem="huc-FG-chk" secondAttribute="bottom" constant="10" id="cCu-eJ-LxF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8Pi-0R-quv" secondAttribute="bottom" id="dm3-Uf-BnZ"/>
+                            <constraint firstItem="huc-FG-chk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="j2N-Tx-fkZ"/>
+                            <constraint firstItem="1Vk-VW-DSv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="par-ua-CR6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -145,4 +174,5 @@
             <point key="canvasLocation" x="270" y="134"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -35,6 +35,10 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func resetDatabaseButtonTapped(_ sender: UIButton) {
+        // TODO: THIS
+    }
+
 
     // MARK: Methods
 

@@ -151,7 +151,7 @@ private extension NavigationController {
         LocalDevice.shared.resetStorage()
 
         // Download new Access Certificates
-        try Telematics.downloadAccessCertificate(accessToken: "INSERT ACCESS TOKEN") {
+        try Telematics.downloadAccessCertificate(accessToken: "ACCCESS CERTIFICATE") {
             switch $0 {
             case .failure(let failureReason):
                 self.sendToDeviceUpdatables(deviceChanged: .failure("Failed to download Access Certificate for Telematics: \(failureReason)"))
@@ -169,9 +169,9 @@ private extension NavigationController {
 
         // Initialise the LocalDevice
         try LocalDevice.shared.initialise(
-            deviceCertificate: "......",
-            devicePrivateKey: ".......",
-            issuerPublicKey: "........"
+            deviceCertificate: "...",
+            devicePrivateKey: "...",
+            issuerPublicKey: "..."
         )
 
         guard LocalDevice.shared.certificate != nil else {
