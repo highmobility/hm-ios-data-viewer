@@ -110,7 +110,7 @@ extension ConnectViewController: DeviceUpdatable {
                 displayText("Connected...")
 
             case .authenticated:
-                displayText("Authenticated, sending command...")
+                displayText("Authenticated, getting VS...")
                 masterController?.refreshVehicleStatus(usingBluetooth: true)
             }
         }
