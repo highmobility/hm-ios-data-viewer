@@ -20,17 +20,21 @@ class NavigationController: UINavigationController {
     // MARK: Methods
 
     func disconnectBluetooth() {
-        LocalDevice.shared.disconnect()
-        LocalDevice.shared.stopBroadcasting()
+        #if !targetEnvironment(simulator)
+            LocalDevice.shared.disconnect()
+            LocalDevice.shared.stopBroadcasting()
+        #endif
     }
 
     func refreshVehicleStatus(usingBluetooth: Bool) {
         let command = VehicleStatus.getVehicleStatus
 
-        sendCommand(command, usingBluetooth: usingBluetooth)
+        sendCommand(command, usingBluetooth: usingBluetooth, name: "VehicleStatus")
     }
 
-    func sendCommand(_ command: [UInt8], usingBluetooth: Bool) {
+    func sendCommand(_ command: [UInt8], usingBluetooth: Bool, name: String) {
+        CommandsManager.shared.addSentCommand(named: name, bytes: command)
+
         if usingBluetooth {
             sendBluetoothCommand(command)
         }
@@ -141,6 +145,8 @@ private extension NavigationController {
             return sendToDeviceUpdatables(deviceChanged: .failure("Failed to parse AutoAPI command."))
         }
 
+        CommandsManager.shared.addReceivedCommand(named: command.debugTree.label, bytes: bytes)
+
         OperationQueue.main.addOperation {
             self.sendToDeviceUpdatables(debugTree: command.debugTree)
         }
@@ -151,7 +157,7 @@ private extension NavigationController {
         LocalDevice.shared.resetStorage()
 
         // Download new Access Certificates
-        try Telematics.downloadAccessCertificate(accessToken: "ACCCESS CERTIFICATE") {
+        try Telematics.downloadAccessCertificate(accessToken: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg") {
             switch $0 {
             case .failure(let failureReason):
                 self.sendToDeviceUpdatables(deviceChanged: .failure("Failed to download Access Certificate for Telematics: \(failureReason)"))

@@ -11,8 +11,8 @@ import UIKit
 
 extension UIViewController {
 
-    var connectionViewController: ViewController? {
-        return navigationController?.viewControllers.compactMap { $0 as? ViewController }.first
+    var connectionViewController: ConnectViewController? {
+        return navigationController?.viewControllers.compactMap { $0 as? ConnectViewController }.first
     }
 
     var masterController: NavigationController? {

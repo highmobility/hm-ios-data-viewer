@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ConnectViewController.swift
 //  Data Viewer
 //
 //  Created by Mikk Rätsep on 02/05/2018.
@@ -10,11 +10,10 @@ import AutoAPI
 import UIKit
 
 
-class ViewController: UIViewController {
+class ConnectViewController: UIViewController {
 
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var connectionMethodSegment: UISegmentedControl!
-    @IBOutlet var errorLabel: UILabel!
 
 
     // MARK: IBActions
@@ -22,7 +21,7 @@ class ViewController: UIViewController {
     @IBAction func connectButtonTapped(_ sender: UIButton) {
         if isBluetoothSelected {
             enableInteractions(false)
-            
+
             do {
                 try masterController?.startBluetoothBroadcasting()
             }
@@ -33,10 +32,6 @@ class ViewController: UIViewController {
         else {
             masterController?.refreshVehicleStatus(usingBluetooth: false)
         }
-    }
-
-    @IBAction func resetDatabaseButtonTapped(_ sender: UIButton) {
-        // TODO: THIS
     }
 
 
@@ -52,8 +47,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayText("Initialising device and downloading Access Certificates")
+        displayText("Initialising...")
         enableInteractions(false)
+
+        #if targetEnvironment(simulator)
+            connectionMethodSegment.selectedSegmentIndex = 1
+            connectionMethodSegment.isEnabled = false
+        #endif
+
+        connectButton.layer.borderColor = view.tintColor.cgColor
+        connectButton.layer.borderWidth = 1.0
+        connectButton.layer.cornerRadius = 4.0
+        connectButton.layer.masksToBounds = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +67,15 @@ class ViewController: UIViewController {
         masterController?.disconnectBluetooth()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        navigationItem.prompt = nil
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        navigationItem.backBarButtonItem?.title = (segue.destination is CommandsViewController) ? "Back" : "Disconnect"
+
         // Send the (tableview-) controller the latest "data"
         guard let deviceUpdatable = segue.destination as? DeviceUpdatable,
             let debugTree = sender as? AutoAPI.DebugTree else {
@@ -73,7 +86,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: DeviceUpdatable {
+extension ConnectViewController: DeviceUpdatable {
 
     func deviceChanged(to result: Result<ConnectionState>) {
         switch result {
@@ -83,11 +96,10 @@ extension ViewController: DeviceUpdatable {
         case .success(let state):
             switch state {
             case .initialised:
-                displayText("Ready to use")
+                displayText(nil)
                 enableInteractions(true)
 
             case .disconnected:
-                displayText("Disconnected")
                 enableInteractions(true)
                 popToRootViewController()
 
@@ -114,7 +126,7 @@ extension ViewController: DeviceUpdatable {
     }
 }
 
-private extension ViewController {
+private extension ConnectViewController {
 
     var isBluetoothSelected: Bool {
         return connectionMethodSegment.selectedSegmentIndex == 0
@@ -123,16 +135,19 @@ private extension ViewController {
 
     // MARK: Methods
 
-    func displayText(_ text: String) {
+    func displayText(_ text: String?) {
         OperationQueue.main.addOperation {
-            self.errorLabel.text = text
+            self.navigationItem.prompt = text
         }
     }
 
     func enableInteractions(_ enable: Bool) {
         OperationQueue.main.addOperation {
             self.connectButton.isEnabled = enable
-            self.connectionMethodSegment.isEnabled = enable
+
+            #if !targetEnvironment(simulator)
+                self.connectionMethodSegment.isEnabled = enable
+            #endif
         }
     }
 

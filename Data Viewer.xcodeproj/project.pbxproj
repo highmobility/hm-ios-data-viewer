@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D7089209B01D900EF7CE1 /* TableViewController.swift */; };
 		207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B62099EE8A00518AAD /* AppDelegate.swift */; };
-		207718B92099EE8A00518AAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ViewController.swift */; };
+		207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ConnectViewController.swift */; };
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
 		207718BE2099EE8B00518AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207718BD2099EE8B00518AAD /* Assets.xcassets */; };
 		207718C12099EE8B00518AAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BF2099EE8B00518AAD /* LaunchScreen.storyboard */; };
@@ -17,7 +17,11 @@
 		207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */; };
 		207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */; };
 		2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085DC05209AE14A009E28C3 /* ConnectionState.swift */; };
+		208B841920A17C550054726E /* CommandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208B841820A17C550054726E /* CommandsViewController.swift */; };
 		2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */; };
+		20AB827520A1C4D500B5DE5C /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827420A1C4D500B5DE5C /* CommandsManager.swift */; };
+		20AB827720A1D68100B5DE5C /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827620A1D68100B5DE5C /* CommandInfo.swift */; };
+		20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */; };
 		20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; };
 		20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; };
@@ -53,7 +57,7 @@
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207718B62099EE8A00518AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		207718B82099EE8A00518AAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		207718B82099EE8A00518AAD /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		207718BB2099EE8A00518AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		207718BD2099EE8B00518AAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		207718C02099EE8B00518AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,7 +66,11 @@
 		207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdatable.swift; sourceTree = "<group>"; };
 		207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		2085DC05209AE14A009E28C3 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		208B841820A17C550054726E /* CommandsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsViewController.swift; sourceTree = "<group>"; };
 		2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugTree+Extensions.swift"; sourceTree = "<group>"; };
+		20AB827420A1C4D500B5DE5C /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
+		20AB827620A1D68100B5DE5C /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
+		20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		20B147982099F06D00895CCC /* HMUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = "<group>"; };
 		20B147992099F06D00895CCC /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
 		20B1479A2099F06E00895CCC /* HMCryptoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = "<group>"; };
@@ -120,12 +128,11 @@
 		207718C82099EE9400518AAD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				208B841720A17C370054726E /* Controllers */,
 				2085DC07209AE153009E28C3 /* Enums */,
 				207DBAF7209CA77D00134294 /* Others */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
-				207DBAF1209C89C800134294 /* NavigationController.swift */,
-				200D7089209B01D900EF7CE1 /* TableViewController.swift */,
-				207718B82099EE8A00518AAD /* ViewController.swift */,
+				20AB827420A1C4D500B5DE5C /* CommandsManager.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -144,9 +151,11 @@
 		207DBAF7209CA77D00134294 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 				2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */,
 				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
 				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,
+				20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -158,6 +167,17 @@
 				20B147AB2099F73000895CCC /* Result.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		208B841720A17C370054726E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				208B841820A17C550054726E /* CommandsViewController.swift */,
+				207718B82099EE8A00518AAD /* ConnectViewController.swift */,
+				207DBAF1209C89C800134294 /* NavigationController.swift */,
+				200D7089209B01D900EF7CE1 /* TableViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,12 +252,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				207718B92099EE8A00518AAD /* ViewController.swift in Sources */,
+				207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */,
 				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
+				20AB827520A1C4D500B5DE5C /* CommandsManager.swift in Sources */,
 				200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */,
 				207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */,
 				207DBAF2209C89C800134294 /* NavigationController.swift in Sources */,
+				208B841920A17C550054726E /* CommandsViewController.swift in Sources */,
+				20AB827720A1D68100B5DE5C /* CommandInfo.swift in Sources */,
 				2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */,
+				20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */,
 				207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */,
 				20B147AC2099F73000895CCC /* Result.swift in Sources */,
 				207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */,

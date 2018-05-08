@@ -54,7 +54,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         guard let node = node(indexPath) else {
             return cell
@@ -91,6 +91,9 @@ class TableViewController: UITableViewController {
             return debugTree.label
         }
     }
+
+
+    // MARK: UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard let node = node(indexPath),
@@ -193,6 +196,16 @@ private extension TableViewController {
 
     // MARK: Methods
 
+    func animateDataReceived() {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.navigationController?.navigationBar.backgroundColor = self.view.tintColor
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
+                self.navigationController?.navigationBar.backgroundColor = nil
+            }, completion: nil)
+        })
+    }
+
     func displaySubController(node: AutoAPI.DebugTree) {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerID") as? TableViewController else {
             return
@@ -207,6 +220,11 @@ private extension TableViewController {
         debugTree = node
 
         navigationItem.title = node.label
-        tableView.reloadData()
+
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integersIn: 0..<tableView.numberOfSections), with: .automatic)
+        tableView.endUpdates()
+
+        animateDataReceived()
     }
 }
