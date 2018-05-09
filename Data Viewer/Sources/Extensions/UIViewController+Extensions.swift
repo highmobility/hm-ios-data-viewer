@@ -14,8 +14,4 @@ extension UIViewController {
     var connectionViewController: ConnectViewController? {
         return navigationController?.viewControllers.compactMap { $0 as? ConnectViewController }.first
     }
-
-    var masterController: NavigationController? {
-        return navigationController as? NavigationController
-    }
 }

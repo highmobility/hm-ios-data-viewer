@@ -23,14 +23,14 @@ class ConnectViewController: UIViewController {
             enableInteractions(false)
 
             do {
-                try masterController?.startBluetoothBroadcasting()
+                try HighMobilityManager.shared.startBluetoothBroadcasting()
             }
             catch {
                 displayText("Failed to start Bluetooth broadcasting: \(error)")
             }
         }
         else {
-            masterController?.refreshVehicleStatus(usingBluetooth: false)
+            HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: false)
         }
     }
 
@@ -38,7 +38,7 @@ class ConnectViewController: UIViewController {
     // MARK: Methods
 
     func refreshVehicleStatus() {
-        masterController?.refreshVehicleStatus(usingBluetooth: isBluetoothSelected)
+        HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: isBluetoothSelected)
     }
 
 
@@ -64,7 +64,7 @@ class ConnectViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        masterController?.disconnectBluetooth()
+        HighMobilityManager.shared.disconnectBluetooth()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -111,7 +111,7 @@ extension ConnectViewController: DeviceUpdatable {
 
             case .authenticated:
                 displayText("Authenticated, getting VS...")
-                masterController?.refreshVehicleStatus(usingBluetooth: true)
+                HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: true)
             }
         }
     }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D7089209B01D900EF7CE1 /* TableViewController.swift */; };
 		202FB06C20A3348A001CD7B5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202FB06B20A3348A001CD7B5 /* Configuration.swift */; };
+		202FB06F20A33E7A001CD7B5 /* DeviceUpdatableSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202FB06E20A33E7A001CD7B5 /* DeviceUpdatableSender.swift */; };
+		202FB07120A33EFE001CD7B5 /* HighMobilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */; };
 		207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B62099EE8A00518AAD /* AppDelegate.swift */; };
 		207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ConnectViewController.swift */; };
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
@@ -57,6 +59,8 @@
 /* Begin PBXFileReference section */
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		202FB06B20A3348A001CD7B5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		202FB06E20A33E7A001CD7B5 /* DeviceUpdatableSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdatableSender.swift; sourceTree = "<group>"; };
+		202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighMobilityManager.swift; sourceTree = "<group>"; };
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207718B62099EE8A00518AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		207718B82099EE8A00518AAD /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
+				202FB06E20A33E7A001CD7B5 /* DeviceUpdatableSender.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 				20AB827420A1C4D500B5DE5C /* CommandsManager.swift */,
 				202FB06B20A3348A001CD7B5 /* Configuration.swift */,
+				202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -165,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */,
-				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,
 				20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */,
+				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,8 +277,10 @@
 				207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */,
 				207DBAF2209C89C800134294 /* NavigationController.swift in Sources */,
 				208B841920A17C550054726E /* CommandsViewController.swift in Sources */,
+				202FB07120A33EFE001CD7B5 /* HighMobilityManager.swift in Sources */,
 				20AB827720A1D68100B5DE5C /* CommandInfo.swift in Sources */,
 				2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */,
+				202FB06F20A33E7A001CD7B5 /* DeviceUpdatableSender.swift in Sources */,
 				20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */,
 				207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */,
 				20B147AC2099F73000895CCC /* Result.swift in Sources */,

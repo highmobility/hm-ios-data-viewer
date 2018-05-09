@@ -12,8 +12,6 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    static let identifier = "TableViewControllerID"
-
     private var debugTree: AutoAPI.DebugTree?
 
 
