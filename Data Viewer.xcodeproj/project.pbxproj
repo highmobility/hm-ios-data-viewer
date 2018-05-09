@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D7089209B01D900EF7CE1 /* TableViewController.swift */; };
+		202FB06C20A3348A001CD7B5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202FB06B20A3348A001CD7B5 /* Configuration.swift */; };
 		207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B62099EE8A00518AAD /* AppDelegate.swift */; };
 		207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ConnectViewController.swift */; };
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		202FB06B20A3348A001CD7B5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207718B62099EE8A00518AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		207718B82099EE8A00518AAD /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		202FB06D20A334E9001CD7B5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		207718AA2099EE8900518AAD = {
 			isa = PBXGroup;
 			children = (
@@ -130,10 +140,12 @@
 			children = (
 				208B841720A17C370054726E /* Controllers */,
 				2085DC07209AE153009E28C3 /* Enums */,
-				207DBAF7209CA77D00134294 /* Others */,
+				207DBAF7209CA77D00134294 /* Extensions */,
+				202FB06D20A334E9001CD7B5 /* Protocols */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
 				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 				20AB827420A1C4D500B5DE5C /* CommandsManager.swift */,
+				202FB06B20A3348A001CD7B5 /* Configuration.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -149,15 +161,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		207DBAF7209CA77D00134294 /* Others */ = {
+		207DBAF7209CA77D00134294 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */,
-				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
 				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,
 				20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */,
 			);
-			path = Others;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2085DC07209AE153009E28C3 /* Enums */ = {
@@ -254,6 +265,7 @@
 			files = (
 				207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */,
 				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
+				202FB06C20A3348A001CD7B5 /* Configuration.swift in Sources */,
 				20AB827520A1C4D500B5DE5C /* CommandsManager.swift in Sources */,
 				200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */,
 				207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */,

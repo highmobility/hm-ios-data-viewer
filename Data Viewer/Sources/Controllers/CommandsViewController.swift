@@ -32,16 +32,7 @@ class CommandsViewController: UITableViewController {
 
         filteredCommands = CommandsManager.shared.commands
 
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Command name"
-        searchController.searchBar.scopeButtonTitles = ["SENT", "ALL", "RECEIVED"]
-        searchController.searchBar.selectedScopeButtonIndex = 1
-        searchController.searchBar.tintColor = view.tintColor
-
-        navigationItem.searchController = searchController
+        configureSearchController()
     }
 
 
@@ -97,6 +88,19 @@ private extension CommandsViewController {
 
 
     // MARK: Methods
+
+    func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Command name"
+        searchController.searchBar.scopeButtonTitles = ["SENT", "ALL", "RECEIVED"]
+        searchController.searchBar.selectedScopeButtonIndex = 1
+        searchController.searchBar.tintColor = view.tintColor
+
+        navigationItem.searchController = searchController
+    }
 
     func filteredCommands(scopeIdx: Int, text: String?) -> [CommandInfo] {
         let commands: [CommandInfo]

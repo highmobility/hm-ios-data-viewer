@@ -14,11 +14,6 @@ import UIKit
 
 class NavigationController: UINavigationController {
 
-    private var vehicleSerial: Data?
-
-
-    // MARK: Methods
-
     func disconnectBluetooth() {
         #if !targetEnvironment(simulator)
             LocalDevice.shared.disconnect()
@@ -62,7 +57,15 @@ class NavigationController: UINavigationController {
         super.init(coder: aDecoder)
 
         do {
-            try initialiseLocalDevice()
+            try Configuration.shared.initialise(delegate: self) {
+                switch $0 {
+                case .failure(let failureReason):
+                    self.sendToDeviceUpdatables(deviceChanged: .failure("Failed to download Access Certificate for Telematics: \(failureReason)"))
+
+                case .success(let state):
+                    self.sendToDeviceUpdatables(deviceChanged: .success(state))
+                }
+            }
         }
         catch {
             sendToDeviceUpdatables(deviceChanged: .failure("Failed to initialise Local Device: \(error)"))
@@ -152,41 +155,6 @@ private extension NavigationController {
         }
     }
 
-    func downloadAccessCertificates() throws {
-        // Clean the DB from old certificates
-        LocalDevice.shared.resetStorage()
-
-        // Download new Access Certificates
-        try Telematics.downloadAccessCertificate(accessToken: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg") {
-            switch $0 {
-            case .failure(let failureReason):
-                self.sendToDeviceUpdatables(deviceChanged: .failure("Failed to download Access Certificate for Telematics: \(failureReason)"))
-
-            case .success(let vehicleSerial):
-                self.vehicleSerial = vehicleSerial
-                self.sendToDeviceUpdatables(deviceChanged: .success(.initialised))
-            }
-        }
-    }
-
-    func initialiseLocalDevice() throws {
-        LocalDevice.shared.delegate = self
-        LocalDevice.loggingOptions = [.command, .error, .general]
-
-        // Initialise the LocalDevice
-        try LocalDevice.shared.initialise(
-            deviceCertificate: "...",
-            devicePrivateKey: "...",
-            issuerPublicKey: "..."
-        )
-
-        guard LocalDevice.shared.certificate != nil else {
-            throw LocalDeviceError.internalError
-        }
-
-        try downloadAccessCertificates()
-    }
-
     func sendBluetoothCommand(_ command: [UInt8]) {
         guard let link = activeLink else {
             return sendToDeviceUpdatables(deviceChanged: .failure("Missing authenticated link"))
@@ -208,7 +176,7 @@ private extension NavigationController {
     }
 
     func sendTelematicsCommand(_ command: [UInt8]) {
-        guard let serial = vehicleSerial else {
+        guard let serial = Configuration.shared.vehicleSerial else {
             return sendToDeviceUpdatables(deviceChanged: .failure("Missing vehicle serial"))
         }
 
