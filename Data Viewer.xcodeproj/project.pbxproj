@@ -132,6 +132,7 @@
 				2085DC07209AE153009E28C3 /* Enums */,
 				207DBAF7209CA77D00134294 /* Others */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
+				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 				20AB827420A1C4D500B5DE5C /* CommandsManager.swift */,
 			);
 			path = Sources;
@@ -151,7 +152,6 @@
 		207DBAF7209CA77D00134294 /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 				2096A089209CC7E100C25F08 /* DebugTree+Extensions.swift */,
 				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
 				207DBAF8209CA79B00134294 /* UIViewController+Extensions.swift */,

@@ -107,7 +107,7 @@ extension ConnectViewController: DeviceUpdatable {
                 displayText("Broadcasting... \(name)")
 
             case .connected:
-                displayText("Connected...")
+                displayText("Connecting...")
 
             case .authenticated:
                 displayText("Authenticated, getting VS...")
