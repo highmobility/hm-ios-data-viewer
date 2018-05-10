@@ -24,12 +24,13 @@ class Configuration {
 
     func initialise(delegate: LocalDeviceDelegate, completion: @escaping (Result<ConnectionState>) -> Void) throws {
         LocalDevice.shared.delegate = delegate
-        
+
         try initialiseLocalDevice(completion: completion)
     }
 
     private init() {
         LocalDevice.loggingOptions = [.command, .error, .general]
+        Telematics.urlBasePath = "https://limitless-gorge-44605.herokuapp.com/"
     }
 }
 
@@ -40,7 +41,7 @@ private extension Configuration {
         LocalDevice.shared.resetStorage()
 
         // Download new Access Certificates
-        try Telematics.downloadAccessCertificate(accessToken: ".....") {
+        try Telematics.downloadAccessCertificate(accessToken: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg") {
             switch $0 {
             case .failure(let failureReason):
                 completion(.failure("Failed to download Access Certificate for Telematics: \(failureReason)"))
@@ -55,9 +56,9 @@ private extension Configuration {
 
     func initialiseLocalDevice(completion: @escaping (Result<ConnectionState>) -> Void) throws {
         try LocalDevice.shared.initialise(
-            deviceCertificate: ".....",
-            devicePrivateKey: ".....",
-            issuerPublicKey: "....."
+            deviceCertificate: "dGVzdDUSLl/IvBsqbLx/RoAiLS2m4LIbZaSBumQjUaC6KbdPHPap+nvxgWWRQ7Iic0QEdmnYPz4/iCGInIFpVxfILs+nPM7TzTFdDb7TRfNnWBjoGsrAdixSznlKFT9gTrXqWo1UqLTJoJX8fCMVuzF5zOV56ilzBU2HCuH/A99QXYakK5IgVCxm4S4l2nEAyrvQuC09Bnmq",
+            devicePrivateKey: "6MhJYvFfFZCYLiXuFR+/8Q7CEos2rGiLYYt5hMEJYIM=",
+            issuerPublicKey: "HuAHdOCCSP3ajv2BI1pTC78YiTe4PEtqUc5/Bk6iRUrgB4cgqgGKXos1ONGZhbRZ0huO2V1pcgk4MwAFB4vffw=="
         )
 
         try downloadAccessCertificates(completion: completion)

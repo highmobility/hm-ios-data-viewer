@@ -6,8 +6,8 @@
 //  Copyright © 2018 High-Mobility OÜ. All rights reserved.
 //
 
-import AutoAPI
 import UIKit
+import HMUtilities
 
 
 class NavigationController: UINavigationController {
@@ -28,7 +28,7 @@ class NavigationController: UINavigationController {
 
 extension NavigationController: DeviceUpdatableSender {
 
-    func sendToDeviceUpdatables(debugTree: AutoAPI.DebugTree) {
+    func sendToDeviceUpdatables(debugTree: DebugTree) {
         deviceUpdatables.forEach {
             $0.deviceReceived(debugTree: debugTree)
         }

@@ -6,13 +6,13 @@
 //  Copyright © 2018 High-Mobility OÜ. All rights reserved.
 //
 
-import AutoAPI
 import Foundation
+import HMUtilities
 
 
-extension AutoAPI.DebugTree {
+extension DebugTree {
 
-    var nodes: [AutoAPI.DebugTree]? {
+    var nodes: [DebugTree]? {
         guard case .node(label: _, nodes: let nodes) = self else {
             return nil
         }

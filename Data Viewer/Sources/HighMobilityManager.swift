@@ -80,7 +80,7 @@ class HighMobilityManager {
 
 extension HighMobilityManager: DeviceUpdatableSender {
 
-    func sendToDeviceUpdatables(debugTree: AutoAPI.DebugTree) {
+    func sendToDeviceUpdatables(debugTree: DebugTree) {
         guard let sender = updatesSender else {
             return print("Missing DeviceUpdatableSender")
         }

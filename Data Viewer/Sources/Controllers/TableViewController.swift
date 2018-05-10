@@ -6,13 +6,13 @@
 //  Copyright © 2018 High-Mobility OÜ. All rights reserved.
 //
 
-import AutoAPI
+import HMUtilities
 import UIKit
 
 
 class TableViewController: UITableViewController {
 
-    private var debugTree: AutoAPI.DebugTree?
+    private var debugTree: DebugTree?
 
 
     // MARK: IBOutlets
@@ -117,7 +117,7 @@ extension TableViewController: DeviceUpdatable {
         // Naah
     }
 
-    func deviceReceived(debugTree: AutoAPI.DebugTree) {
+    func deviceReceived(debugTree: DebugTree) {
         if isThisControllersDebugTree(debugTree) {
             matchingDebugTreeReceived(debugTree)
         }
@@ -135,14 +135,14 @@ extension TableViewController: DeviceUpdatable {
 
 private extension TableViewController {
 
-    var groups: (AutoAPI.DebugTree) -> [AutoAPI.DebugTree] {
+    var groups: (DebugTree) -> [DebugTree] {
         return {
             guard let nodes = $0.nodes?.filter({ !$0.label.hasPrefix("*") }) else {
                 return []
             }
 
             // Extract different "types" of values (just 2 atm)
-            let properties: [AutoAPI.DebugTree] = nodes.compactMap {
+            let properties: [DebugTree] = nodes.compactMap {
                 guard case .leaf = $0 else {
                     return nil
                 }
@@ -150,7 +150,7 @@ private extension TableViewController {
                 return $0
             }
 
-            let subNodes: [AutoAPI.DebugTree] = nodes.compactMap {
+            let subNodes: [DebugTree] = nodes.compactMap {
                 guard case .node = $0 else {
                     return nil
                 }
@@ -158,11 +158,11 @@ private extension TableViewController {
                 return $0
             }
 
-            var groups: [AutoAPI.DebugTree] = []
+            var groups: [DebugTree] = []
 
             // Check what to add
             if properties.count > 0 {
-                groups.append(AutoAPI.DebugTree.node(label: "Properties", nodes: properties))
+                groups.append(DebugTree.node(label: "Properties", nodes: properties))
             }
 
             if subNodes.count > 0 {
@@ -174,13 +174,13 @@ private extension TableViewController {
         }
     }
 
-    var isThisControllersDebugTree: (AutoAPI.DebugTree) -> Bool {
+    var isThisControllersDebugTree: (DebugTree) -> Bool {
         return {
             return (self.debugTree == nil) || (self.debugTree?.label == $0.label)
         }
     }
 
-    var node: (IndexPath) -> AutoAPI.DebugTree? {
+    var node: (IndexPath) -> DebugTree? {
         return {
             guard let debugTree = self.debugTree,
                 let nodes = self.groups(debugTree)[$0.section].nodes else {
@@ -204,7 +204,7 @@ private extension TableViewController {
         })
     }
 
-    func displaySubController(node: AutoAPI.DebugTree) {
+    func displaySubController(node: DebugTree) {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerID") as? TableViewController else {
             return
         }
@@ -214,7 +214,7 @@ private extension TableViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
 
-    func matchingDebugTreeReceived(_ node: AutoAPI.DebugTree) {
+    func matchingDebugTreeReceived(_ node: DebugTree) {
         debugTree = node
 
         navigationItem.title = node.label

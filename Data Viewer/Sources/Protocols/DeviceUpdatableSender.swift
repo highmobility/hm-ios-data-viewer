@@ -6,12 +6,12 @@
 //  Copyright © 2018 High-Mobility OÜ. All rights reserved.
 //
 
-import AutoAPI
 import Foundation
+import HMUtilities
 
 
 protocol DeviceUpdatableSender {
 
-    func sendToDeviceUpdatables(debugTree: AutoAPI.DebugTree)
+    func sendToDeviceUpdatables(debugTree: DebugTree)
     func sendToDeviceUpdatables(deviceChanged: Result<ConnectionState>)
 }

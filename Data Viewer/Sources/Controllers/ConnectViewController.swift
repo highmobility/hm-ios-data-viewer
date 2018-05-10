@@ -7,6 +7,7 @@
 //
 
 import AutoAPI
+import HMUtilities
 import UIKit
 
 
@@ -78,7 +79,7 @@ class ConnectViewController: UIViewController {
 
         // Send the (tableview-) controller the latest "data"
         guard let deviceUpdatable = segue.destination as? DeviceUpdatable,
-            let debugTree = sender as? AutoAPI.DebugTree else {
+            let debugTree = sender as? DebugTree else {
                 return
         }
 
@@ -116,7 +117,7 @@ extension ConnectViewController: DeviceUpdatable {
         }
     }
 
-    func deviceReceived(debugTree: AutoAPI.DebugTree) {
+    func deviceReceived(debugTree: DebugTree) {
         // Push the 1st TableViewController if none present
         guard let count = navigationController?.viewControllers.count, count == 1 else {
             return
