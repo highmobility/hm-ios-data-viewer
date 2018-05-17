@@ -18,4 +18,20 @@ import UIKit
         // Override point for customization after application launch.
         return true
     }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let parsedResult = OAuthManager.parseRedirectURL(url)
+
+        switch parsedResult {
+        case .unknown:
+            print("Can't open this app with URL:", url.absoluteString)
+
+            return false
+
+        default:
+            HighMobilityManager.shared.oauthUpdatesSender?.oauthReceivedRedirect(parsedResult)
+
+            return true
+        }
+    }
 }

@@ -11,15 +11,23 @@ import HMUtilities
 import UIKit
 
 
+// TODO: Fetch a REGISTERED certificate's vehicleSerial and allow to connect
+// TODO: LOGIN wipes the DB
+
+
 class ConnectViewController: UIViewController {
+
 
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var connectionMethodSegment: UISegmentedControl!
+    @IBOutlet var loginButton: UIButton!
 
 
     // MARK: IBActions
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
+        loginButton.isEnabled = false
+
         if isBluetoothSelected {
             enableInteractions(false)
 
@@ -35,6 +43,14 @@ class ConnectViewController: UIViewController {
         }
     }
 
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
+        guard let url = HighMobilityManager.shared.oauthURL else {
+            return print("Missing OAuthURL")
+        }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
 
     // MARK: Methods
 
@@ -48,18 +64,17 @@ class ConnectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayText("Initialising...")
-        enableInteractions(false)
+        configureButton(connectButton)
+        configureButton(loginButton)
+        enableInteractions(HighMobilityManager.shared.hasAccessCertificates)
+
+        // TODO: Uncomment
+        loginButton.isEnabled = false
 
         #if targetEnvironment(simulator)
             connectionMethodSegment.selectedSegmentIndex = 1
             connectionMethodSegment.isEnabled = false
         #endif
-
-        connectButton.layer.borderColor = view.tintColor.cgColor
-        connectButton.layer.borderWidth = 1.0
-        connectButton.layer.cornerRadius = 4.0
-        connectButton.layer.masksToBounds = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +86,8 @@ class ConnectViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
+        // TODO: Uncomment
+//        loginButton.isEnabled = true
         navigationItem.prompt = nil
     }
 
@@ -96,7 +113,7 @@ extension ConnectViewController: DeviceUpdatable {
 
         case .success(let state):
             switch state {
-            case .initialised:
+            case .certificatesDownloaded:
                 displayText(nil)
                 enableInteractions(true)
 
@@ -127,6 +144,36 @@ extension ConnectViewController: DeviceUpdatable {
     }
 }
 
+extension ConnectViewController: OAuthUpdatable {
+
+    func oauthReceivedRedirect(_ result: OAuthManager.RedirectResult) {
+        var text: String
+
+        switch result {
+        case .error(reason: let reason, state: let state):
+            text = "ATC error: " + reason
+
+            if let state = state {
+                text += ", state: " + state
+            }
+
+        case .successful(accessTokenCode: let tokenCode, state: let state):
+            text = "ATC success: " + tokenCode
+
+            if let state = state {
+                text += ", state: " + state
+            }
+
+            HighMobilityManager.shared.downloadAccessCertificates(accessTokenCode: tokenCode, completion: deviceChanged)
+
+        default:
+            text = "Access Token Code Tailor Error"
+        }
+
+        displayText(text)
+    }
+}
+
 private extension ConnectViewController {
 
     var isBluetoothSelected: Bool {
@@ -135,6 +182,13 @@ private extension ConnectViewController {
 
 
     // MARK: Methods
+
+    func configureButton(_ button: UIButton) {
+        button.layer.borderColor = view.tintColor.cgColor
+        button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 4.0
+        button.layer.masksToBounds = true
+    }
 
     func displayText(_ text: String?) {
         OperationQueue.main.addOperation {

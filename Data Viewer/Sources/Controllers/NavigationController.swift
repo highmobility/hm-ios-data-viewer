@@ -12,31 +12,45 @@ import HMUtilities
 
 class NavigationController: UINavigationController {
 
-    private var deviceUpdatables: [DeviceUpdatable] {
-        return viewControllers.compactMap { $0 as? DeviceUpdatable }
-    }
-
-
-    // MARK: UIViewController
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        HighMobilityManager.shared.updatesSender = self
+        HighMobilityManager.shared.deviceUpdatesSender = self
+        HighMobilityManager.shared.oauthUpdatesSender = self
     }
 }
 
-extension NavigationController: DeviceUpdatableSender {
+extension NavigationController: DeviceUpdatable {
 
-    func sendToDeviceUpdatables(debugTree: DebugTree) {
+    func deviceReceived(debugTree: DebugTree) {
         deviceUpdatables.forEach {
             $0.deviceReceived(debugTree: debugTree)
         }
     }
 
-    func sendToDeviceUpdatables(deviceChanged: Result<ConnectionState>) {
+    func deviceChanged(to result: Result<ConnectionState>) {
         deviceUpdatables.forEach {
-            $0.deviceChanged(to: deviceChanged)
+            $0.deviceChanged(to: result)
         }
+    }
+}
+
+extension NavigationController: OAuthUpdatable {
+
+    func oauthReceivedRedirect(_ result: OAuthManager.RedirectResult) {
+        oauthUpdatables.forEach {
+            $0.oauthReceivedRedirect(result)
+        }
+    }
+}
+
+private extension NavigationController {
+
+    var deviceUpdatables: [DeviceUpdatable] {
+        return viewControllers.compactMap { $0 as? DeviceUpdatable }
+    }
+
+    var oauthUpdatables: [OAuthUpdatable] {
+        return viewControllers.compactMap { $0 as? OAuthUpdatable }
     }
 }

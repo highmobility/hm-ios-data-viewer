@@ -10,7 +10,7 @@ import Foundation
 
 
 enum ConnectionState {
-    case initialised
+    case certificatesDownloaded
     case disconnected
     case broadcasting(name: String)
     case connected
