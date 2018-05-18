@@ -22,8 +22,6 @@ class ConnectViewController: UIViewController {
     // MARK: IBActions
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
-        loginButton.isEnabled = false
-
         if isBluetoothSelected {
             enableInteractions(false)
 
@@ -31,8 +29,6 @@ class ConnectViewController: UIViewController {
                 try HighMobilityManager.shared.startBluetoothBroadcasting()
             }
             catch {
-                loginButton.isEnabled = true
-
                 displayText("Failed to start Bluetooth broadcasting: \(error)")
             }
         }
@@ -93,7 +89,6 @@ class ConnectViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        loginButton.isEnabled = true
         navigationItem.prompt = nil
     }
 

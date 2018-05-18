@@ -53,6 +53,13 @@ class CommandsViewController: UITableViewController {
 
         return cell
     }
+
+
+    // MARK: UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIPasteboard.general.string = filteredCommands[indexPath.row].bytes.hex
+    }
 }
 
 extension CommandsViewController: UISearchBarDelegate {
