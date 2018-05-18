@@ -11,10 +11,6 @@ import HMUtilities
 import UIKit
 
 
-// TODO: Fetch a REGISTERED certificate's vehicleSerial and allow to connect
-// TODO: LOGIN wipes the DB
-
-
 class ConnectViewController: UIViewController {
 
 
@@ -35,6 +31,8 @@ class ConnectViewController: UIViewController {
                 try HighMobilityManager.shared.startBluetoothBroadcasting()
             }
             catch {
+                loginButton.isEnabled = true
+
                 displayText("Failed to start Bluetooth broadcasting: \(error)")
             }
         }
@@ -44,11 +42,22 @@ class ConnectViewController: UIViewController {
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        guard let url = HighMobilityManager.shared.oauthURL else {
-            return print("Missing OAuthURL")
-        }
+        if HighMobilityManager.shared.hasAccessCertificates {
+            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            controller.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+            controller.addAction(.init(title: "Log out", style: .destructive, handler: { _ in
+                HighMobilityManager.shared.clearDatabase()
+
+                self.updateLoginButton(loggedIn: false)
+                self.enableInteractions(false)
+            }))
+
+            present(controller, animated: true, completion: nil)
+        }
+        else {
+            openOAuthURL()
+        }
     }
 
 
@@ -67,9 +76,7 @@ class ConnectViewController: UIViewController {
         configureButton(connectButton)
         configureButton(loginButton)
         enableInteractions(HighMobilityManager.shared.hasAccessCertificates)
-
-        // TODO: Uncomment
-        loginButton.isEnabled = false
+        updateLoginButton(loggedIn: HighMobilityManager.shared.hasAccessCertificates)
 
         #if targetEnvironment(simulator)
             connectionMethodSegment.selectedSegmentIndex = 1
@@ -86,8 +93,7 @@ class ConnectViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        // TODO: Uncomment
-//        loginButton.isEnabled = true
+        loginButton.isEnabled = true
         navigationItem.prompt = nil
     }
 
@@ -116,6 +122,7 @@ extension ConnectViewController: DeviceUpdatable {
             case .certificatesDownloaded:
                 displayText(nil)
                 enableInteractions(true)
+                updateLoginButton(loggedIn: true)
 
             case .disconnected:
                 enableInteractions(true)
@@ -206,6 +213,14 @@ private extension ConnectViewController {
         }
     }
 
+    func openOAuthURL() {
+        guard let url = HighMobilityManager.shared.oauthURL else {
+            return print("Missing OAuthURL")
+        }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
     func popToRootViewController() {
         OperationQueue.main.addOperation {
             guard let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 1 else {
@@ -213,6 +228,14 @@ private extension ConnectViewController {
             }
 
             self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
+    func updateLoginButton(loggedIn: Bool) {
+        let text = loggedIn ? "LOG OUT" : "LOGIN"
+
+        OperationQueue.main.addOperation {
+            self.loginButton.setTitle(text, for: .normal)
         }
     }
 }

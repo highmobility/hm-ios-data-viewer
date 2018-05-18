@@ -38,6 +38,10 @@ class HighMobilityManager {
 
     // MARK: Methods
 
+    func clearDatabase() {
+        LocalDevice.shared.resetStorage()
+    }
+
     func disconnectBluetooth() {
         #if !targetEnvironment(simulator)
             LocalDevice.shared.disconnect()
@@ -90,9 +94,17 @@ class HighMobilityManager {
         }
 
         guard LocalDevice.shared.registeredCertificates.count > 0 else {
-            return deviceChanged(to: .failure("Missing Access Certificates"))
+            return deviceChanged(to: .failure("Missing Access Certificate(s)"))
         }
 
+        guard let serial = vehicleSerial else {
+            return deviceChanged(to: .failure("Missing Vehicle Serial"))
+        }
+
+        // Just in case set it again
+        LocalDevice.shared.configuration.broadcastingFilter = serial
+
+        // Finally start
         try LocalDevice.shared.startBroadcasting()
     }
 
@@ -101,16 +113,17 @@ class HighMobilityManager {
 
     private init() {
         LocalDevice.shared.delegate = self
-        LocalDevice.loggingOptions = [.command, .error, .general]
+        LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests]
 
         // OAuth configuration
         appID = "A0F90F9AB61ED3649ADE165F"
         authURI = "https://developers.high-mobility.com/hm_cloud/o/159395ba-f738-4c7a-a826-49205737d7cf/oauth"
         clientID = "e3a34856-48c4-4e18-83b7-9d8249496d75"
-        redirectScheme = "com.hm.dev.1525347432-8qrtgjeqjfxq"
+        redirectScheme = "com.hm.dev.1525347432-8qrtgjeqjfxq://in-app-callback"
         scope = "car.full_control"
         tokenURI = "https://developers.high-mobility.com/hm_cloud/api/v1/159395ba-f738-4c7a-a826-49205737d7cf/oauth/access_tokens"
 
+        // LocalDevice configuration
         do {
             try LocalDevice.shared.initialise(
                 deviceCertificate: "dGVzdKD5D5q2HtNkmt4WX+V7QiD7FtBFLrmnbuUFzJxCpRnfoMP4VkGOqpAYyoAZirRJIH7CR01TpPIM6Vps7r4pVH54tDGZiPi4ekCjRY1Ex+IjJdyKyrzt4rqjx7ziVJFGGZgEHYIDaPxcpojSNltCdKD36WX7w//0GHTtBXLkLdsU0947di9RHetOD+J0L7GeQGveJWDj",
@@ -121,10 +134,8 @@ class HighMobilityManager {
             deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
         }
 
-        // TODO: Delete
-        downloadAccessCertificates(token: "6e80591a-8b4c-4a6f-92e8-83bf31eb155f") {
-            self.deviceChanged(to: $0)
-        }
+        // Other configuration
+        vehicleSerial = LocalDevice.shared.registeredCertificates.first?.gainingSerial.data
     }
 }
 
