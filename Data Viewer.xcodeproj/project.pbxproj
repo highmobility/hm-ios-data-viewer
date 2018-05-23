@@ -439,6 +439,7 @@
 		207718C62099EE8B00518AAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ACTIVE_CONFIGURATION = DEBUG;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F42CFRE556;
@@ -461,6 +462,7 @@
 		207718C72099EE8B00518AAD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ACTIVE_CONFIGURATION = RELEASE;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F42CFRE556;

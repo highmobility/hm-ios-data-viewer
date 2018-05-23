@@ -67,6 +67,26 @@ class HighMobilityManager {
         }
     }
 
+    func loadDebugSetup() {
+        /*
+         Linked against HEROKU: NEWEST AUTO
+        */
+        Telematics.urlBasePath = "https://limitless-gorge-44605.herokuapp.com/"
+
+        do {
+            try LocalDevice.shared.initialise(
+                deviceCertificate: "dGVzdDUSLl/IvBsqbLx/RkPuGdD5m5mxt/5+465wCngfh3yB6TH12w4tGqZfGnXkX1m2VU3Rtk9BcJriAK0kGyxslFfuCZdEsiCGTYHWFy8L50UOjlcVo9AW5Q16/RgCrs7jaGxXZgj9MY6asUwZqUUPUt6JgOR0PIUJzoHL8d9/54Kam6u3gfw1A/AYOE1aKIYU4bJZjHNn",
+                devicePrivateKey: "hgxhHEP2tySKC2VKZjD0wLtRAOBuLT6EPR+kElp/LMQ=",
+                issuerPublicKey: "HuAHdOCCSP3ajv2BI1pTC78YiTe4PEtqUc5/Bk6iRUrgB4cgqgGKXos1ONGZhbRZ0huO2V1pcgk4MwAFB4vffw=="
+            )
+        }
+        catch {
+            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
+        }
+
+        downloadAccessCertificates(token: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg", completion: deviceChanged)
+    }
+
     func refreshVehicleStatus(usingBluetooth: Bool) {
         let command = VehicleStatus.getVehicleStatus
 
@@ -237,7 +257,7 @@ private extension HighMobilityManager {
             try Telematics.downloadAccessCertificate(accessToken: token) {
                 switch $0 {
                 case .failure(let reason):
-                    completion(.failure("Failed to download Access Certificate: \(reason)"))
+                    completion(.failure("Download Access Certificate: \(reason)"))
 
                 case .success(let serial):
                     self.vehicleSerial = serial

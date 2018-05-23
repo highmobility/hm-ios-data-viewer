@@ -114,14 +114,9 @@ private extension CommandsViewController {
 
         // Scope
         switch scopeIdx {
-        case 0:
-            commands = CommandsManager.shared.commands.filter { $0.isSent }
-
-        case 2:
-            commands = CommandsManager.shared.commands.filter { !$0.isSent }
-
-        default:
-            commands = CommandsManager.shared.commands
+        case 0:     commands = CommandsManager.shared.commands.filter { $0.isSent }
+        case 2:     commands = CommandsManager.shared.commands.filter { !$0.isSent }
+        default:    commands = CommandsManager.shared.commands
         }
 
         // Text

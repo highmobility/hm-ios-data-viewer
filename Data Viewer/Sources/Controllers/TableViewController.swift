@@ -137,7 +137,15 @@ private extension TableViewController {
 
     var groups: (DebugTree) -> [DebugTree] {
         return {
-            guard let nodes = $0.nodes?.filter({ !$0.label.hasPrefix("*") }) else {
+            var isIncluded: (DebugTree) -> Bool {
+                return {
+                    !$0.label.hasPrefix("*") &&
+                    !$0.label.contains(" = nil")
+                }
+            }
+
+            // Filter the nodes
+            guard let nodes = $0.nodes?.filter(isIncluded) else {
                 return []
             }
 

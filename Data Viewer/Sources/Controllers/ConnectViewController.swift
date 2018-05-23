@@ -182,6 +182,14 @@ private extension ConnectViewController {
         return connectionMethodSegment.selectedSegmentIndex == 0
     }
 
+    var isRunningDebug: Bool {
+        guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {
+            return false
+        }
+
+        return value == "DEBUG"
+    }
+
 
     // MARK: Methods
 
@@ -209,11 +217,17 @@ private extension ConnectViewController {
     }
 
     func openOAuthURL() {
-        guard let url = HighMobilityManager.shared.oauthURL else {
-            return print("Missing OAuthURL")
+        if isRunningDebug {
+            HighMobilityManager.shared.loadDebugSetup()
         }
+        else {
+            guard let url = HighMobilityManager.shared.oauthURL else {
+                return print("Missing OAuthURL")
+            }
 
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
+        }
     }
 
     func popToRootViewController() {
