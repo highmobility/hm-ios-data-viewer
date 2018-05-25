@@ -17,6 +17,7 @@ class TableViewController: UITableViewController {
 
     // MARK: IBOutlets
 
+    @IBOutlet var hexKeyboardView: HexKeyboardView!
     @IBOutlet var refreshButton: UIBarButtonItem!
 
 
@@ -24,6 +25,28 @@ class TableViewController: UITableViewController {
 
     @IBAction func refreshButtonTapped(_ sender: UIBarButtonItem) {
         connectionViewController?.refreshVehicleStatus()
+    }
+
+    @IBAction func sendCommandTapped(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "", message: "Send a custom command to the connected device", preferredStyle: .alert)
+        let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
+            guard let bytes = alertController.textFields?.first?.text?.bytes, bytes.count > 0 else {
+                return
+            }
+
+            HighMobilityManager.shared.sendCommand(bytes, name: "Custom")
+        }
+
+        alertController.addAction(sendAction)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alertController.addTextField {
+            $0.inputView = self.hexKeyboardView
+
+            self.hexKeyboardView.textfield = $0
+        }
+
+        present(alertController, animated: true, completion: nil)
     }
 
 
@@ -122,7 +145,14 @@ extension TableViewController: DeviceUpdatable {
             matchingDebugTreeReceived(debugTree)
         }
         else if let nodes = debugTree.nodes {
-            let sub2Nodes = nodes.reduce(nodes) { $0 + ($1.nodes ?? []) }
+            var isIncluded: (DebugTree) -> Bool {
+                return {
+                    !$0.label.hasPrefix("*") &&
+                        !$0.label.contains(" = nil")
+                }
+            }
+
+            let sub2Nodes = nodes.filter(isIncluded).reduce(nodes) { $0 + ($1.nodes ?? []) }
 
             guard let matchingNode = sub2Nodes.first(where: { self.isThisControllersDebugTree($0) }) else {
                 return sub2Nodes.forEach { self.deviceReceived(debugTree: $0) }

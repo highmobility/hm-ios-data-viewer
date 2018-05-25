@@ -22,7 +22,7 @@ class ConnectViewController: UIViewController {
     // MARK: IBActions
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
-        if isBluetoothSelected {
+        if connectionMethodSegment.selectedSegmentIndex == 0 {
             enableInteractions(false)
 
             do {
@@ -33,8 +33,12 @@ class ConnectViewController: UIViewController {
             }
         }
         else {
-            HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: false)
+            HighMobilityManager.shared.refreshVehicleStatus()
         }
+    }
+
+    @IBAction func connectionMethodChanged(_ sender: UISegmentedControl) {
+        HighMobilityManager.shared.isBluetoothConnection = sender.selectedSegmentIndex == 0
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
@@ -60,7 +64,7 @@ class ConnectViewController: UIViewController {
     // MARK: Methods
 
     func refreshVehicleStatus() {
-        HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: isBluetoothSelected)
+        HighMobilityManager.shared.refreshVehicleStatus()
     }
 
 
@@ -73,6 +77,8 @@ class ConnectViewController: UIViewController {
         configureButton(loginButton)
         enableInteractions(HighMobilityManager.shared.hasAccessCertificates)
         updateLoginButton(loggedIn: HighMobilityManager.shared.hasAccessCertificates)
+
+        HighMobilityManager.shared.isBluetoothConnection = connectionMethodSegment.selectedSegmentIndex == 0
 
         #if targetEnvironment(simulator)
             connectionMethodSegment.selectedSegmentIndex = 1
@@ -131,7 +137,7 @@ extension ConnectViewController: DeviceUpdatable {
 
             case .authenticated:
                 displayText("Authenticated, getting VS...")
-                HighMobilityManager.shared.refreshVehicleStatus(usingBluetooth: true)
+                HighMobilityManager.shared.refreshVehicleStatus()
             }
         }
     }
@@ -177,10 +183,6 @@ extension ConnectViewController: OAuthUpdatable {
 }
 
 private extension ConnectViewController {
-
-    var isBluetoothSelected: Bool {
-        return connectionMethodSegment.selectedSegmentIndex == 0
-    }
 
     var isRunningDebug: Bool {
         guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {

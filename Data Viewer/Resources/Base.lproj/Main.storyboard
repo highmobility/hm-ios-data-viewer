@@ -34,6 +34,9 @@
                                             <segment title="Bluetooth"/>
                                             <segment title="Telematics"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="connectionMethodChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="KhJ-aH-ZON"/>
+                                        </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4c-jV-Z55">
                                         <rect key="frame" x="0.0" y="48" width="343" height="42"/>
@@ -125,6 +128,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Name" id="NxH-9S-P28">
                         <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="5D6-0F-HQO">
+                                <connections>
+                                    <action selector="sendCommandTapped:" destination="18f-RZ-ccc" id="0Rz-6Q-bDX"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="refresh" id="o7h-FF-L0y">
                                 <connections>
                                     <action selector="refreshButtonTapped:" destination="18f-RZ-ccc" id="lPp-RA-cdS"/>
@@ -138,9 +146,265 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="hexKeyboardView" destination="rH5-jQ-jvg" id="IWb-CI-pJP"/>
                         <outlet property="refreshButton" destination="o7h-FF-L0y" id="eps-2P-d6I"/>
                     </connections>
                 </tableViewController>
+                <view contentMode="scaleToFill" id="rH5-jQ-jvg" customClass="HexKeyboardView" customModule="Data_Viewer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lR8-gD-dRo">
+                            <rect key="frame" x="8" y="8" width="359" height="309"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ugM-Nq-vbi">
+                                    <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAq-hl-F8S" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="1">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="7wf-V4-wnQ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WV-O6-e7m" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="2">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="cXs-ti-Oam"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2B-5n-rBK" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="3">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="iuY-v4-xHQ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z8E-jb-xyH">
+                                    <rect key="frame" x="0.0" y="53" width="359" height="44.5"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54s-f6-wjP" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="4">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="Fia-ge-P0q"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2a-m5-I8U" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="5">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="qM6-vA-zpB"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hN-6M-QGS" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="6">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="nyd-c5-jxO"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cpD-dC-cDL">
+                                    <rect key="frame" x="0.0" y="105.5" width="359" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llV-zA-JZF" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="7">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="Uib-jh-gF0"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1V-6a-jYC" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="8">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="1me-hf-tbg"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4n-t5-YC3" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="9">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="bZw-tN-ynq"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="spQ-jZ-dky">
+                                    <rect key="frame" x="0.0" y="158.5" width="359" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0je-yW-Df1" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="A">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="HsQ-mJ-TXx"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKY-6o-TWR" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="B">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="Bru-Db-9Pv"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4un-JS-66q" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="C">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="HLJ-3I-yxs"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-Cj-DVW">
+                                    <rect key="frame" x="0.0" y="211.5" width="359" height="44.5"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABZ-eE-b0g" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="D">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="SJO-0e-Wsn"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpz-QH-5Pz" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="E">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="boq-pS-sIK"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVa-KJ-eOi" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="44.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="F">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="7Yf-5T-AHy"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cNv-Fa-LpE">
+                                    <rect key="frame" x="0.0" y="264" width="359" height="45"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWX-Is-N4R">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-Hv-5eA" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="0">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="nwk-Dy-QA5"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-Fk-mX2" userLabel="Delete Button">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <state key="normal" image="deleteButton"/>
+                                            <state key="highlighted" image="deleteButtonDark"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="y5n-mY-9vp"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="lR8-gD-dRo" secondAttribute="bottom" constant="8" id="4b8-pR-2b5"/>
+                        <constraint firstItem="lR8-gD-dRo" firstAttribute="top" secondItem="rH5-jQ-jvg" secondAttribute="top" constant="8" id="Ck2-ib-43g"/>
+                        <constraint firstAttribute="trailing" secondItem="lR8-gD-dRo" secondAttribute="trailing" constant="8" id="M82-Fy-vuJ"/>
+                        <constraint firstItem="lR8-gD-dRo" firstAttribute="leading" secondItem="rH5-jQ-jvg" secondAttribute="leading" constant="8" id="fLx-wE-PG4"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Uus-Bd-n6B"/>
+                    <connections>
+                        <outletCollection property="standardButtons" destination="jAq-hl-F8S" collectionClass="NSMutableArray" id="NtN-0b-qGj"/>
+                        <outletCollection property="standardButtons" destination="1WV-O6-e7m" collectionClass="NSMutableArray" id="Cqa-0a-q1b"/>
+                        <outletCollection property="standardButtons" destination="N2B-5n-rBK" collectionClass="NSMutableArray" id="nF3-tb-nbE"/>
+                        <outletCollection property="standardButtons" destination="54s-f6-wjP" collectionClass="NSMutableArray" id="36d-1B-Mzu"/>
+                        <outletCollection property="standardButtons" destination="j2a-m5-I8U" collectionClass="NSMutableArray" id="iA2-6I-63I"/>
+                        <outletCollection property="standardButtons" destination="3hN-6M-QGS" collectionClass="NSMutableArray" id="4Vw-iu-THe"/>
+                        <outletCollection property="standardButtons" destination="llV-zA-JZF" collectionClass="NSMutableArray" id="Bqs-kc-y60"/>
+                        <outletCollection property="standardButtons" destination="F1V-6a-jYC" collectionClass="NSMutableArray" id="BSE-Ke-FSG"/>
+                        <outletCollection property="standardButtons" destination="g4n-t5-YC3" collectionClass="NSMutableArray" id="IS6-Z4-Czb"/>
+                        <outletCollection property="standardButtons" destination="0je-yW-Df1" collectionClass="NSMutableArray" id="vMe-aq-mny"/>
+                        <outletCollection property="standardButtons" destination="hKY-6o-TWR" collectionClass="NSMutableArray" id="nFP-Ty-vLj"/>
+                        <outletCollection property="standardButtons" destination="4un-JS-66q" collectionClass="NSMutableArray" id="l7F-QI-I3u"/>
+                        <outletCollection property="standardButtons" destination="ABZ-eE-b0g" collectionClass="NSMutableArray" id="5AS-LV-tAH"/>
+                        <outletCollection property="standardButtons" destination="Gpz-QH-5Pz" collectionClass="NSMutableArray" id="QUc-59-qJU"/>
+                        <outletCollection property="standardButtons" destination="VVa-KJ-eOi" collectionClass="NSMutableArray" id="JxW-P1-hFf"/>
+                        <outletCollection property="standardButtons" destination="Upr-Hv-5eA" collectionClass="NSMutableArray" id="2Hb-zW-mlG"/>
+                    </connections>
+                </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uz7-38-bRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1953" y="134"/>
@@ -249,7 +513,11 @@
             <point key="canvasLocation" x="270" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="deleteButton" width="104" height="53"/>
+        <image name="deleteButtonDark" width="104" height="53"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fjX-wO-gYB"/>
+        <segue reference="4cG-iN-OFO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,6 +12,8 @@
 		203A4BF220AACDDA00E8B3D1 /* OAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */; };
 		203A4BF520AAF2CB00E8B3D1 /* OAuthUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */; };
 		203A4BF720AB028A00E8B3D1 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */; };
+		2044D1F220B7FEB000C4430B /* HexKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */; };
+		2044D1F420B8007A00C4430B /* HexKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */; };
 		207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B62099EE8A00518AAD /* AppDelegate.swift */; };
 		207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207718B82099EE8A00518AAD /* ConnectViewController.swift */; };
 		207718BC2099EE8A00518AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207718BA2099EE8A00518AAD /* Main.storyboard */; };
@@ -63,6 +65,8 @@
 		203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthManager.swift; sourceTree = "<group>"; };
 		203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthUpdatable.swift; sourceTree = "<group>"; };
 		203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
+		2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexKeyboardView.swift; sourceTree = "<group>"; };
+		2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexKeyboardButton.swift; sourceTree = "<group>"; };
 		207718B32099EE8A00518AAD /* Data Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Data Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207718B62099EE8A00518AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		207718B82099EE8A00518AAD /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		2044D1F520B8008300C4430B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */,
+				2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		207718AA2099EE8900518AAD = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +173,7 @@
 				207DBAF7209CA77D00134294 /* Extensions */,
 				203A4BF320AACE5000E8B3D1 /* Managers */,
 				202FB06D20A334E9001CD7B5 /* Protocols */,
+				2044D1F520B8008300C4430B /* Views */,
 				207718B62099EE8A00518AAD /* AppDelegate.swift */,
 				20AB827620A1D68100B5DE5C /* CommandInfo.swift */,
 			);
@@ -290,11 +304,13 @@
 				203A4BF720AB028A00E8B3D1 /* URLRequest+Extensions.swift in Sources */,
 				207DBAF2209C89C800134294 /* NavigationController.swift in Sources */,
 				208B841920A17C550054726E /* CommandsViewController.swift in Sources */,
+				2044D1F420B8007A00C4430B /* HexKeyboardButton.swift in Sources */,
 				202FB07120A33EFE001CD7B5 /* HighMobilityManager.swift in Sources */,
 				20AB827720A1D68100B5DE5C /* CommandInfo.swift in Sources */,
 				2096A08A209CC7E100C25F08 /* DebugTree+Extensions.swift in Sources */,
 				20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */,
 				207DBAF9209CA79B00134294 /* UIViewController+Extensions.swift in Sources */,
+				2044D1F220B7FEB000C4430B /* HexKeyboardView.swift in Sources */,
 				20B147AC2099F73000895CCC /* Result.swift in Sources */,
 				207718B72099EE8A00518AAD /* AppDelegate.swift in Sources */,
 			);

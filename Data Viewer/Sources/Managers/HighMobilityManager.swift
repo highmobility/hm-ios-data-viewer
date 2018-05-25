@@ -31,6 +31,8 @@ class HighMobilityManager {
         return LocalDevice.shared.registeredCertificates.count > 0
     }
 
+    var isBluetoothConnection: Bool = false
+
     var oauthURL: URL? {
         return OAuthManager.oauthURL(authURI: authURI, clientID: clientID, redirectScheme: redirectScheme, scope: scope, appID: appID)
     }
@@ -87,16 +89,16 @@ class HighMobilityManager {
         downloadAccessCertificates(token: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg", completion: deviceChanged)
     }
 
-    func refreshVehicleStatus(usingBluetooth: Bool) {
+    func refreshVehicleStatus() {
         let command = VehicleStatus.getVehicleStatus
 
-        sendCommand(command, usingBluetooth: usingBluetooth, name: "VehicleStatus")
+        sendCommand(command, name: "VehicleStatus")
     }
 
-    func sendCommand(_ command: [UInt8], usingBluetooth: Bool, name: String) {
+    func sendCommand(_ command: [UInt8], name: String) {
         CommandsManager.shared.addSentCommand(named: name, bytes: command)
 
-        if usingBluetooth {
+        if isBluetoothConnection {
             sendBluetoothCommand(command)
         }
         else {
