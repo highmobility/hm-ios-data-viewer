@@ -16,7 +16,7 @@ class ConnectViewController: UIViewController {
 
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var connectionMethodSegment: UISegmentedControl!
-    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var linkButton: UIButton!
 
 
     // MARK: IBActions
@@ -41,15 +41,15 @@ class ConnectViewController: UIViewController {
         HighMobilityManager.shared.isBluetoothConnection = sender.selectedSegmentIndex == 0
     }
 
-    @IBAction func loginButtonTapped(_ sender: UIButton) {
+    @IBAction func linkButtonTapped(_ sender: UIButton) {
         if HighMobilityManager.shared.hasAccessCertificates {
-            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "", message: "Would you like to unlink the vehicle?", preferredStyle: .actionSheet)
 
             controller.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            controller.addAction(.init(title: "Log out", style: .destructive, handler: { _ in
+            controller.addAction(.init(title: "Unlink", style: .destructive, handler: { _ in
                 HighMobilityManager.shared.clearDatabase()
 
-                self.updateLoginButton(loggedIn: false)
+                self.updateLinkButton(linked: false)
                 self.enableInteractions(false)
             }))
 
@@ -74,9 +74,9 @@ class ConnectViewController: UIViewController {
         super.viewDidLoad()
 
         configureButton(connectButton)
-        configureButton(loginButton)
+        configureButton(linkButton)
         enableInteractions(HighMobilityManager.shared.hasAccessCertificates)
-        updateLoginButton(loggedIn: HighMobilityManager.shared.hasAccessCertificates)
+        updateLinkButton(linked: HighMobilityManager.shared.hasAccessCertificates)
 
         HighMobilityManager.shared.isBluetoothConnection = connectionMethodSegment.selectedSegmentIndex == 0
 
@@ -123,7 +123,7 @@ extension ConnectViewController: DeviceUpdatable {
             case .certificatesDownloaded:
                 displayText(nil)
                 enableInteractions(true)
-                updateLoginButton(loggedIn: true)
+                updateLinkButton(linked: true)
 
             case .disconnected:
                 enableInteractions(true)
@@ -242,11 +242,11 @@ private extension ConnectViewController {
         }
     }
 
-    func updateLoginButton(loggedIn: Bool) {
-        let text = loggedIn ? "LOG OUT" : "LOGIN"
+    func updateLinkButton(linked: Bool) {
+        let text = linked ? "UNLINK VEHICLE" : "LINK VEHICLE"
 
         OperationQueue.main.addOperation {
-            self.loginButton.setTitle(text, for: .normal)
+            self.linkButton.setTitle(text, for: .normal)
         }
     }
 }

@@ -41,9 +41,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4c-jV-Z55">
                                         <rect key="frame" x="0.0" y="48" width="343" height="42"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                        <state key="normal" title="LOGIN"/>
+                                        <state key="normal" title="LINK VEHICLE"/>
                                         <connections>
-                                            <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GUD-8r-R9v"/>
+                                            <action selector="linkButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GUD-8r-R9v"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kP-6D-p4e">
@@ -79,7 +79,7 @@
                     <connections>
                         <outlet property="connectButton" destination="9kP-6D-p4e" id="Nux-As-34m"/>
                         <outlet property="connectionMethodSegment" destination="1Vk-VW-DSv" id="cMv-41-Lhy"/>
-                        <outlet property="loginButton" destination="N4c-jV-Z55" id="WA3-hG-ZIG"/>
+                        <outlet property="linkButton" destination="N4c-jV-Z55" id="WA3-hG-ZIG"/>
                         <segue destination="18f-RZ-ccc" kind="show" identifier="showTableViewController" id="4L8-MT-tXj"/>
                     </connections>
                 </viewController>
@@ -518,6 +518,6 @@
         <image name="deleteButtonDark" width="104" height="53"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4cG-iN-OFO"/>
+        <segue reference="fjX-wO-gYB"/>
     </inferredMetricsTieBreakers>
 </document>
