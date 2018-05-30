@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t8F-TU-Byx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t8F-TU-Byx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -151,17 +151,55 @@
                     </connections>
                 </tableViewController>
                 <view contentMode="scaleToFill" id="rH5-jQ-jvg" customClass="HexKeyboardView" customModule="Data_Viewer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="380"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lR8-gD-dRo">
-                            <rect key="frame" x="8" y="8" width="359" height="309"/>
+                            <rect key="frame" x="8" y="8" width="359" height="364"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ugM-Nq-vbi">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Wld-hM-dLX">
                                     <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAq-hl-F8S" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSH-ff-GEa" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Lock Doors">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="lockDoorsTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="sL6-Qc-lsS"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCH-EK-CX7" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Honk Horn">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="honkHornTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="rUa-yG-Hwp"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dF-LQ-B87" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Unlock Doors">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="unlockDoorsTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="RQb-cM-pDQ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ugM-Nq-vbi">
+                                    <rect key="frame" x="0.0" y="53" width="359" height="45.5"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAq-hl-F8S" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="1">
@@ -172,7 +210,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WV-O6-e7m" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="2">
@@ -183,7 +221,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2B-5n-rBK" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="3">
@@ -196,10 +234,10 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z8E-jb-xyH">
-                                    <rect key="frame" x="0.0" y="53" width="359" height="44.5"/>
+                                    <rect key="frame" x="0.0" y="106.5" width="359" height="45"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54s-f6-wjP" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="4">
@@ -210,7 +248,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2a-m5-I8U" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="122.5" y="0.0" width="114" height="44.5"/>
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="5">
@@ -221,7 +259,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hN-6M-QGS" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="44.5"/>
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="6">
@@ -234,7 +272,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cpD-dC-cDL">
-                                    <rect key="frame" x="0.0" y="105.5" width="359" height="45"/>
+                                    <rect key="frame" x="0.0" y="159.5" width="359" height="45"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llV-zA-JZF" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
@@ -272,7 +310,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="spQ-jZ-dky">
-                                    <rect key="frame" x="0.0" y="158.5" width="359" height="45"/>
+                                    <rect key="frame" x="0.0" y="212.5" width="359" height="45"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0je-yW-Df1" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
@@ -310,10 +348,10 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-Cj-DVW">
-                                    <rect key="frame" x="0.0" y="211.5" width="359" height="44.5"/>
+                                    <rect key="frame" x="0.0" y="265.5" width="359" height="45.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABZ-eE-b0g" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.5" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="D">
@@ -324,7 +362,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpz-QH-5Pz" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="122.5" y="0.0" width="114" height="44.5"/>
+                                            <rect key="frame" x="122.5" y="0.0" width="114" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="E">
@@ -335,7 +373,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVa-KJ-eOi" customClass="HexKeyboardButton" customModule="Data_Viewer" customModuleProvider="target">
-                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="44.5"/>
+                                            <rect key="frame" x="244.5" y="0.0" width="114.5" height="45.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="F">
@@ -348,7 +386,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cNv-Fa-LpE">
-                                    <rect key="frame" x="0.0" y="264" width="359" height="45"/>
+                                    <rect key="frame" x="0.0" y="319" width="359" height="45"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWX-Is-N4R">
                                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="45"/>
@@ -365,7 +403,7 @@
                                                 <action selector="buttonTapped:" destination="rH5-jQ-jvg" eventType="touchUpInside" id="nwk-Dy-QA5"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-Fk-mX2" userLabel="Delete Button">
+                                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-Fk-mX2" userLabel="Delete Button">
                                             <rect key="frame" x="244.5" y="0.0" width="114.5" height="45"/>
                                             <state key="normal" image="deleteButton"/>
                                             <state key="highlighted" image="deleteButtonDark"/>
@@ -518,6 +556,6 @@
         <image name="deleteButtonDark" width="104" height="53"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fjX-wO-gYB"/>
+        <segue reference="4cG-iN-OFO"/>
     </inferredMetricsTieBreakers>
 </document>

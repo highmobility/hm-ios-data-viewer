@@ -28,25 +28,7 @@ class TableViewController: UITableViewController {
     }
 
     @IBAction func sendCommandTapped(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "", message: "Send a custom command to the connected device", preferredStyle: .alert)
-        let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
-            guard let bytes = alertController.textFields?.first?.text?.bytes, bytes.count > 0 else {
-                return
-            }
-
-            HighMobilityManager.shared.sendCommand(bytes, name: "Custom")
-        }
-
-        alertController.addAction(sendAction)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-        alertController.addTextField {
-            $0.inputView = self.hexKeyboardView
-
-            self.hexKeyboardView.textfield = $0
-        }
-
-        present(alertController, animated: true, completion: nil)
+        presentSendCommandAlert()
     }
 
 
@@ -262,5 +244,27 @@ private extension TableViewController {
         tableView.endUpdates()
 
         animateDataReceived()
+    }
+
+    func presentSendCommandAlert() {
+        let alertController = UIAlertController(title: "", message: "Send a custom command to the connected device", preferredStyle: .alert)
+        let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
+            guard let bytes = alertController.textFields?.first?.text?.bytes, bytes.count > 0 else {
+                return
+            }
+
+            HighMobilityManager.shared.sendCommand(bytes, name: "Custom")
+        }
+
+        alertController.addAction(sendAction)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alertController.addTextField {
+            $0.inputView = self.hexKeyboardView
+
+            self.hexKeyboardView.textfield = $0
+        }
+
+        present(alertController, animated: true, completion: nil)
     }
 }
