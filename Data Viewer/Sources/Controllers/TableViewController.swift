@@ -12,7 +12,7 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    private var debugTree: DebugTree?
+    private var groups: [DebugTree] = []
 
 
     // MARK: IBOutlets
@@ -35,19 +35,11 @@ class TableViewController: UITableViewController {
     // MARK: UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        guard let debugTree = debugTree else {
-            return 0
-        }
-
-        return groups(debugTree).count
+        return groups.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let debugTree = debugTree else {
-            return 0
-        }
-
-        switch groups(debugTree)[section] {
+        switch groups[section] {
         case .leaf:
             return 1
 
@@ -72,7 +64,7 @@ class TableViewController: UITableViewController {
         }
         else {
             cell.textLabel?.text = node.label
-            cell.detailTextLabel?.text = nil
+            cell.detailTextLabel?.text = nodesSubTypeValue(node)
             cell.accessoryType = .disclosureIndicator
         }
 
@@ -80,18 +72,12 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard var debugTree = debugTree else {
-            return nil
-        }
-
-        debugTree = groups(debugTree)[section]
-
-        switch debugTree {
+        switch groups[section] {
         case .leaf:
             return nil
 
-        case .node:
-            return debugTree.label
+        case .node(let label, _):
+            return label
         }
     }
 
@@ -123,20 +109,21 @@ extension TableViewController: DeviceUpdatable {
     }
 
     func deviceReceived(debugTree: DebugTree) {
-        if isThisControllersDebugTree(debugTree) {
+        var matchesTitle: (DebugTree) -> Bool {
+            return {
+                return (self.navigationItem.title == $0.label) &&
+                    (self.navigationItem.prompt == self.nodesSubTypeValue($0))
+            }
+        }
+
+        // Check if this is a DebugTree for this controller or not
+        if self.groups.isEmpty || matchesTitle(debugTree) {
             matchingDebugTreeReceived(debugTree)
         }
         else if let nodes = debugTree.nodes {
-            var isIncluded: (DebugTree) -> Bool {
-                return {
-                    !$0.label.hasPrefix("*") &&
-                        !$0.label.contains(" = nil")
-                }
-            }
+            let sub2Nodes = nodes.filter(nodeFilterFunction).reduce(nodes) { $0 + ($1.nodes ?? []) }
 
-            let sub2Nodes = nodes.filter(isIncluded).reduce(nodes) { $0 + ($1.nodes ?? []) }
-
-            guard let matchingNode = sub2Nodes.first(where: { self.isThisControllersDebugTree($0) }) else {
+            guard let matchingNode = sub2Nodes.first(where: matchesTitle) else {
                 return sub2Nodes.forEach { self.deviceReceived(debugTree: $0) }
             }
 
@@ -147,67 +134,20 @@ extension TableViewController: DeviceUpdatable {
 
 private extension TableViewController {
 
-    var groups: (DebugTree) -> [DebugTree] {
-        return {
-            var isIncluded: (DebugTree) -> Bool {
-                return {
-                    !$0.label.hasPrefix("*") &&
-                    !$0.label.contains(" = nil")
-                }
-            }
-
-            // Filter the nodes
-            guard let nodes = $0.nodes?.filter(isIncluded) else {
-                return []
-            }
-
-            // Extract different "types" of values (just 2 atm)
-            let properties: [DebugTree] = nodes.compactMap {
-                guard case .leaf = $0 else {
-                    return nil
-                }
-
-                return $0
-            }
-
-            let subNodes: [DebugTree] = nodes.compactMap {
-                guard case .node = $0 else {
-                    return nil
-                }
-
-                return $0
-            }
-
-            var groups: [DebugTree] = []
-
-            // Check what to add
-            if properties.count > 0 {
-                groups.append(DebugTree.node(label: "Properties", nodes: properties))
-            }
-
-            if subNodes.count > 0 {
-                groups.append(contentsOf: subNodes)
-            }
-
-            // Return alphabetically
-            return groups.sorted { $0.label < $1.label }
-        }
-    }
-
-    var isThisControllersDebugTree: (DebugTree) -> Bool {
-        return {
-            return (self.debugTree == nil) || (self.debugTree?.label == $0.label)
-        }
-    }
-
     var node: (IndexPath) -> DebugTree? {
         return {
-            guard let debugTree = self.debugTree,
-                let nodes = self.groups(debugTree)[$0.section].nodes else {
-                    return nil
+            guard let nodes = self.groups[$0.section].nodes else {
+                return nil
             }
 
             return nodes[$0.row]
+        }
+    }
+
+    var nodeFilterFunction: (DebugTree) -> Bool {
+        return {
+            !$0.label.hasPrefix("*") &&
+                !$0.label.contains(" = nil")
         }
     }
 
@@ -234,16 +174,32 @@ private extension TableViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
 
-    func matchingDebugTreeReceived(_ node: DebugTree) {
-        debugTree = node
-
-        navigationItem.title = node.label
-
-        tableView.beginUpdates()
-        tableView.reloadSections(IndexSet(integersIn: 0..<tableView.numberOfSections), with: .automatic)
-        tableView.endUpdates()
+    func matchingDebugTreeReceived(_ debugTree: DebugTree) {
+        navigationItem.title = debugTree.label
+        navigationItem.prompt = nodesSubTypeValue(debugTree)
 
         animateDataReceived()
+        updateGroups(debugTree: debugTree)
+
+        tableView.reloadData()
+    }
+
+    func nodesSubTypeValue(_ node: DebugTree) -> String? {
+        if let driverNumber = node.subPropertyValue(named: "driverNumber", filterFunction: nodeFilterFunction) {
+            return driverNumber
+        }
+        else if let locationValue = node.subPropertyValue(named: "location", filterFunction: nodeFilterFunction) {
+            return locationValue
+        }
+        else if let nameValue = node.subPropertyValue(named: "name", filterFunction: nodeFilterFunction), node.label != "VehicleStatus" {
+            return nameValue
+        }
+        else if let positionValue = node.subPropertyValue(named: "position", filterFunction: nodeFilterFunction) {
+            return positionValue
+        }
+        else {
+            return nil
+        }
     }
 
     func presentSendCommandAlert() {
@@ -266,5 +222,43 @@ private extension TableViewController {
         }
 
         present(alertController, animated: true, completion: nil)
+    }
+
+    func updateGroups(debugTree: DebugTree) {
+        // Filter the nodes
+        guard let nodes = debugTree.nodes?.filter(nodeFilterFunction) else {
+            return self.groups = []
+        }
+
+        // Extract different "types" of values (just 2 atm)
+        let properties: [DebugTree] = nodes.compactMap {
+            guard case .leaf = $0 else {
+                return nil
+            }
+
+            return $0
+        }
+
+        let subNodes: [DebugTree] = nodes.compactMap {
+            guard case .node = $0 else {
+                return nil
+            }
+
+            return $0
+        }
+
+        var groups: [DebugTree] = []
+
+        // Check what to add
+        if properties.count > 0 {
+            groups.append(DebugTree.node(label: "Properties", nodes: properties))
+        }
+
+        if subNodes.count > 0 {
+            groups.append(contentsOf: subNodes)
+        }
+
+        // Return alphabetically
+        self.groups = groups.sorted { $0.label < $1.label }
     }
 }

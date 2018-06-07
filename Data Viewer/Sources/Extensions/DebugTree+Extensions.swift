@@ -19,4 +19,11 @@ extension DebugTree {
 
         return nodes
     }
+
+
+    func subPropertyValue(named: String, filterFunction: ((DebugTree) -> Bool)?) -> String? {
+        let function = filterFunction ?? { _ in true }
+
+        return nodes?.filter(function).first { $0.label.starts(with: named) }?.label.components(separatedBy: "=").last
+    }
 }

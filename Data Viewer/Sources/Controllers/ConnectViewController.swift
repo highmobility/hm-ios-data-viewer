@@ -184,17 +184,6 @@ extension ConnectViewController: OAuthUpdatable {
 
 private extension ConnectViewController {
 
-    var isRunningDebug: Bool {
-        guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {
-            return false
-        }
-
-        return value == "DEBUG"
-    }
-
-
-    // MARK: Methods
-
     func configureButton(_ button: UIButton) {
         button.layer.borderColor = view.tintColor.cgColor
         button.layer.borderWidth = 1.0
@@ -219,8 +208,8 @@ private extension ConnectViewController {
     }
 
     func openOAuthURL() {
-        if isRunningDebug {
-            HighMobilityManager.shared.loadDebugSetup()
+        if HighMobilityManager.shared.isRunningDebug {
+            HighMobilityManager.shared.downloadDebugCertificates()
         }
         else {
             guard let url = HighMobilityManager.shared.oauthURL else {

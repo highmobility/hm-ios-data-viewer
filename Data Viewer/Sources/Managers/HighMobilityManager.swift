@@ -33,6 +33,14 @@ class HighMobilityManager {
 
     var isBluetoothConnection: Bool = false
 
+    var isRunningDebug: Bool {
+        guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {
+            return false
+        }
+
+        return value == "DEBUG"
+    }
+
     var oauthURL: URL? {
         return OAuthManager.oauthURL(authURI: authURI, clientID: clientID, redirectScheme: redirectScheme, scope: scope, appID: appID)
     }
@@ -69,24 +77,8 @@ class HighMobilityManager {
         }
     }
 
-    func loadDebugSetup() {
-        /*
-         Linked against HEROKU: NEWEST AUTO
-        */
-        Telematics.urlBasePath = "https://limitless-gorge-44605.herokuapp.com/"
-
-        do {
-            try LocalDevice.shared.initialise(
-                deviceCertificate: "dGVzdDUSLl/IvBsqbLx/RkPuGdD5m5mxt/5+465wCngfh3yB6TH12w4tGqZfGnXkX1m2VU3Rtk9BcJriAK0kGyxslFfuCZdEsiCGTYHWFy8L50UOjlcVo9AW5Q16/RgCrs7jaGxXZgj9MY6asUwZqUUPUt6JgOR0PIUJzoHL8d9/54Kam6u3gfw1A/AYOE1aKIYU4bJZjHNn",
-                devicePrivateKey: "hgxhHEP2tySKC2VKZjD0wLtRAOBuLT6EPR+kElp/LMQ=",
-                issuerPublicKey: "HuAHdOCCSP3ajv2BI1pTC78YiTe4PEtqUc5/Bk6iRUrgB4cgqgGKXos1ONGZhbRZ0huO2V1pcgk4MwAFB4vffw=="
-            )
-        }
-        catch {
-            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
-        }
-
-        downloadAccessCertificates(token: "Op7u6_4kRtE6mkOCfNcxWCahbQCiM82KO-oUravn0FIbKmUhJWutd36pd7V6s41eNy-IuBSk8BD_C8PhOG4kj88PE1JzQQnZLRpVZBzLDJYTI1I9zx87VStv9Ly4XonfNg", completion: deviceChanged)
+    func downloadDebugCertificates() {
+        downloadAccessCertificates(token: "cwFZyqUZhhECoilSPY0LKEHf3WfwXVe_kDPtkUYatWkq0obnrBP4pjRfta1N6BJ3kHp96HdPJC869Ic4vC0E_o2ApkD1e6pUj3lJtZBElPr-q8BVhCA-1pIhPrS49jwfQA", completion: deviceChanged)
     }
 
     func refreshVehicleStatus() {
@@ -135,7 +127,7 @@ class HighMobilityManager {
 
     private init() {
         LocalDevice.shared.delegate = self
-        LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests]
+        LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics]
 
         // OAuth configuration
         appID = "A0F90F9AB61ED3649ADE165F"
@@ -146,15 +138,7 @@ class HighMobilityManager {
         tokenURI = "https://developers.high-mobility.com/hm_cloud/api/v1/159395ba-f738-4c7a-a826-49205737d7cf/oauth/access_tokens"
 
         // LocalDevice configuration
-        do {
-            try LocalDevice.shared.initialise(
-                deviceCertificate: "dGVzdKD5D5q2HtNkmt4WX+V7QiD7FtBFLrmnbuUFzJxCpRnfoMP4VkGOqpAYyoAZirRJIH7CR01TpPIM6Vps7r4pVH54tDGZiPi4ekCjRY1Ex+IjJdyKyrzt4rqjx7ziVJFGGZgEHYIDaPxcpojSNltCdKD36WX7w//0GHTtBXLkLdsU0947di9RHetOD+J0L7GeQGveJWDj",
-                devicePrivateKey: "r2RZcb1TNZrVPP6YaJoL+qiAID1mjwEE83FOEng938M=",
-                issuerPublicKey: "mqFX9i6iNMs2KjNfv+R9YqREtJaDAYhgeWZsVSEmI95GRfIzTTXWJQI/VfX3XDs4NRO0lWMSQwNgl1lER0h+wA==")
-        }
-        catch {
-            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
-        }
+        isRunningDebug ? loadDebugSetup() : loadVolkswagenSetup()
 
         // Other configuration
         vehicleSerial = LocalDevice.shared.registeredCertificates.first?.gainingSerial.data
@@ -208,6 +192,7 @@ extension HighMobilityManager: LocalDeviceDelegate {
 
     func localDevice(didReceiveLink link: Link) {
         link.delegate = self
+        link.device.stopBroadcasting()
 
         deviceChanged(to: .success(.connected))
     }
@@ -259,7 +244,7 @@ private extension HighMobilityManager {
             try Telematics.downloadAccessCertificate(accessToken: token) {
                 switch $0 {
                 case .failure(let reason):
-                    completion(.failure("Download Access Certificate: \(reason)"))
+                    completion(.failure(reason))
 
                 case .success(let serial):
                     self.vehicleSerial = serial
@@ -274,6 +259,36 @@ private extension HighMobilityManager {
         }
         catch {
             completion(.failure("Failed to start downloading Access Certificates: \(error)"))
+        }
+    }
+
+    func loadDebugSetup() {
+        /*
+         Linked against HEROKU: Mikkland - Kevin's Crafter
+         */
+        Telematics.urlBasePath = "https://hm-devcenter3.herokuapp.com/"
+
+        do {
+            try LocalDevice.shared.initialise(
+                deviceCertificate: "dGVzdD6q9qTyN5vGMC9BXz60DY6C6tiWoYuZRYD7b9witf88gDMYVN4xRIOijl8fWTac/T74T+XrRiMNOXYiCA3GiI2WgOR1EM/RPSic4U7t81XMYs+KYZg+kciXePQBgU6ipZtY1BBn2pv8Whbs1jmjihTYnunbfqkoVFC/hE1LPPViRxHjxm1YzkQI4tzmR/detaq0mfXK",
+                devicePrivateKey: "XM7Agki21TMl/CYoCHrh3VSFkszUEnunNFAzsjlTL2E=",
+                issuerPublicKey: "0BQbKCHQzVz822pgdbrkr4IqA9hvamocXcpe+1OkSLrml9CXwejWnbf/22jNDJGmphL8MJvCMjK1Cuw4dIE0ow=="
+            )
+        }
+        catch {
+            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
+        }
+    }
+
+    func loadVolkswagenSetup() {
+        do {
+            try LocalDevice.shared.initialise(
+                deviceCertificate: "dGVzdKD5D5q2HtNkmt4WX+V7QiD7FtBFLrmnbuUFzJxCpRnfoMP4VkGOqpAYyoAZirRJIH7CR01TpPIM6Vps7r4pVH54tDGZiPi4ekCjRY1Ex+IjJdyKyrzt4rqjx7ziVJFGGZgEHYIDaPxcpojSNltCdKD36WX7w//0GHTtBXLkLdsU0947di9RHetOD+J0L7GeQGveJWDj",
+                devicePrivateKey: "r2RZcb1TNZrVPP6YaJoL+qiAID1mjwEE83FOEng938M=",
+                issuerPublicKey: "mqFX9i6iNMs2KjNfv+R9YqREtJaDAYhgeWZsVSEmI95GRfIzTTXWJQI/VfX3XDs4NRO0lWMSQwNgl1lER0h+wA==")
+        }
+        catch {
+            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
         }
     }
 
