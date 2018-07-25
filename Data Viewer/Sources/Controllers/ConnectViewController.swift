@@ -13,7 +13,6 @@ import UIKit
 
 class ConnectViewController: UIViewController {
 
-
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var connectionMethodSegment: UISegmentedControl!
     @IBOutlet var linkButton: UIButton!
@@ -23,13 +22,22 @@ class ConnectViewController: UIViewController {
 
     @IBAction func connectButtonTapped(_ sender: UIButton) {
         if connectionMethodSegment.selectedSegmentIndex == 0 {
-            enableInteractions(false)
+            if HighMobilityManager.shared.isBluetoothBroadcasting {
+                HighMobilityManager.shared.disconnectBluetooth()
 
-            do {
-                try HighMobilityManager.shared.startBluetoothBroadcasting()
+                navigationItem.prompt = nil
+                sender.setTitle("CONNECT", for: .normal)
             }
-            catch {
-                displayText("Failed to start Bluetooth broadcasting: \(error)")
+            else {
+                enableInteractions(false)
+
+                do {
+                    try HighMobilityManager.shared.startBluetoothBroadcasting()
+                }
+                catch {
+                    displayText("Failed to start Bluetooth broadcasting: \(error)")
+                    enableInteractions(true)
+                }
             }
         }
         else {
@@ -49,7 +57,7 @@ class ConnectViewController: UIViewController {
             controller.addAction(.init(title: "Unlink", style: .destructive, handler: { _ in
                 HighMobilityManager.shared.clearDatabase()
 
-                self.updateLinkButton(linked: false)
+                self.updateLinkButton(isLinked: false)
                 self.enableInteractions(false)
             }))
 
@@ -76,7 +84,7 @@ class ConnectViewController: UIViewController {
         configureButton(connectButton)
         configureButton(linkButton)
         enableInteractions(HighMobilityManager.shared.hasAccessCertificates)
-        updateLinkButton(linked: HighMobilityManager.shared.hasAccessCertificates)
+        updateLinkButton(isLinked: HighMobilityManager.shared.hasAccessCertificates)
 
         HighMobilityManager.shared.isBluetoothConnection = connectionMethodSegment.selectedSegmentIndex == 0
 
@@ -123,14 +131,17 @@ extension ConnectViewController: DeviceUpdatable {
             case .certificatesDownloaded:
                 displayText(nil)
                 enableInteractions(true)
-                updateLinkButton(linked: true)
+                updateLinkButton(isLinked: true)
 
             case .disconnected:
                 enableInteractions(true)
                 popToRootViewController()
 
             case .broadcasting(let name):
+                connectButton.setTitle("DISCONNECT", for: .normal)
+
                 displayText("Broadcasting... \(name)")
+                enableInteractions(true)
 
             case .connected:
                 displayText("Connecting...")
@@ -231,8 +242,8 @@ private extension ConnectViewController {
         }
     }
 
-    func updateLinkButton(linked: Bool) {
-        let text = linked ? "UNLINK VEHICLE" : "LINK VEHICLE"
+    func updateLinkButton(isLinked: Bool) {
+        let text = isLinked ? "UNLINK VEHICLE" : "LINK VEHICLE"
 
         OperationQueue.main.addOperation {
             self.linkButton.setTitle(text, for: .normal)

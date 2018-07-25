@@ -33,6 +33,10 @@ class HighMobilityManager {
 
     var isBluetoothConnection: Bool = false
 
+    var isBluetoothBroadcasting: Bool {
+        return LocalDevice.shared.state == .broadcasting
+    }
+
     var isRunningDebug: Bool {
         guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {
             return false
@@ -78,6 +82,9 @@ class HighMobilityManager {
     }
 
     func downloadDebugCertificates() {
+        /*
+         Linked against HEROKU: Mikkland - Kevin's Crafter
+         */
         downloadAccessCertificates(token: "cwFZyqUZhhECoilSPY0LKEHf3WfwXVe_kDPtkUYatWkq0obnrBP4pjRfta1N6BJ3kHp96HdPJC869Ic4vC0E_o2ApkD1e6pUj3lJtZBElPr-q8BVhCA-1pIhPrS49jwfQA", completion: deviceChanged)
     }
 
@@ -169,6 +176,10 @@ extension HighMobilityManager: LinkDelegate {
 
     func link(_ link: Link, commandReceived bytes: [UInt8]) {
         commandReceived(bytes)
+    }
+
+    func link(_ link: Link, revokeCompleted bytes: [UInt8]) {
+        print("REVOKE COMPLETED:", bytes.hex)
     }
 
     func link(_ link: Link, stateChanged previousState: LinkState) {
