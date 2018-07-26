@@ -34,7 +34,7 @@ class HighMobilityManager {
     var isBluetoothConnection: Bool = false
 
     var isBluetoothBroadcasting: Bool {
-        return LocalDevice.shared.state == .broadcasting
+        return (LocalDevice.shared.state == .broadcasting) && (LocalDevice.shared.link == nil)
     }
 
     var isRunningDebug: Bool {
@@ -105,6 +105,17 @@ class HighMobilityManager {
         }
     }
 
+    func sendRevoke() {
+        do {
+            try LocalDevice.shared.link?.sendRevoke {
+                self.deviceChanged(to: .failure("Revoke failed: \($0)"))
+            }
+        }
+        catch {
+            deviceChanged(to: .failure("Revoke failed: \(error)"))
+        }
+    }
+
     func startBluetoothBroadcasting() throws {
         guard LocalDevice.shared.state == .idle else {
             return
@@ -134,6 +145,7 @@ class HighMobilityManager {
 
     private init() {
         LocalDevice.shared.delegate = self
+        LocalDevice.shared.configuration.isAlivePingActive = true
         LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics]
 
         // OAuth configuration
@@ -180,6 +192,8 @@ extension HighMobilityManager: LinkDelegate {
 
     func link(_ link: Link, revokeCompleted bytes: [UInt8]) {
         print("REVOKE COMPLETED:", bytes.hex)
+
+        deviceChanged(to: .success(.connected))
     }
 
     func link(_ link: Link, stateChanged previousState: LinkState) {

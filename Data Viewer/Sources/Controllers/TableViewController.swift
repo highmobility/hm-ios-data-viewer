@@ -211,8 +211,12 @@ private extension TableViewController {
 
             HighMobilityManager.shared.sendCommand(bytes, name: "Custom")
         }
+        let revokeAction = UIAlertAction(title: "Revoke", style: .default) { _ in
+            HighMobilityManager.shared.sendRevoke()
+        }
 
         alertController.addAction(sendAction)
+        alertController.addAction(revokeAction)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         alertController.addTextField {

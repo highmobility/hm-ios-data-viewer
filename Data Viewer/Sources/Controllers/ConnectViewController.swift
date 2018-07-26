@@ -61,6 +61,8 @@ class ConnectViewController: UIViewController {
                 self.enableInteractions(false)
             }))
 
+            controller.popoverPresentationController?.sourceView = sender
+
             present(controller, animated: true, completion: nil)
         }
         else {
@@ -98,6 +100,9 @@ class ConnectViewController: UIViewController {
         super.viewWillAppear(animated)
 
         HighMobilityManager.shared.disconnectBluetooth()
+
+        // This should happen through something else
+        connectButton.setTitle("CONNECT", for: .normal)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
