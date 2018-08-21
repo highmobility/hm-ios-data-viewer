@@ -83,9 +83,9 @@ class HighMobilityManager {
 
     func downloadDebugCertificates() {
         /*
-         Linked against HEROKU: Mikkland - Kevin's Crafter
+         Linked against STAGING: mikk's tester - Maidu test 2
          */
-        downloadAccessCertificates(token: "cwFZyqUZhhECoilSPY0LKEHf3WfwXVe_kDPtkUYatWkq0obnrBP4pjRfta1N6BJ3kHp96HdPJC869Ic4vC0E_o2ApkD1e6pUj3lJtZBElPr-q8BVhCA-1pIhPrS49jwfQA", completion: deviceChanged)
+        downloadAccessCertificates(token: "fdb0741e-64f0-4a38-b74d-47e6da2eee0d", completion: deviceChanged)
     }
 
     func refreshVehicleStatus() {
@@ -289,19 +289,20 @@ private extension HighMobilityManager {
 
     func loadDebugSetup() {
         /*
-         Linked against HEROKU: Mikkland - Kevin's Crafter
+         Linked against STAGING: mikk's tester - Maidu test 2
          */
-        Telematics.urlBasePath = "https://hm-devcenter3.herokuapp.com/"
+        Telematics.urlBasePath = "https://beta.high-mobility.com/"
 
         do {
             try LocalDevice.shared.initialise(
-                deviceCertificate: "dGVzdD6q9qTyN5vGMC9BXz60DY6C6tiWoYuZRYD7b9witf88gDMYVN4xRIOijl8fWTac/T74T+XrRiMNOXYiCA3GiI2WgOR1EM/RPSic4U7t81XMYs+KYZg+kciXePQBgU6ipZtY1BBn2pv8Whbs1jmjihTYnunbfqkoVFC/hE1LPPViRxHjxm1YzkQI4tzmR/detaq0mfXK",
-                devicePrivateKey: "XM7Agki21TMl/CYoCHrh3VSFkszUEnunNFAzsjlTL2E=",
-                issuerPublicKey: "0BQbKCHQzVz822pgdbrkr4IqA9hvamocXcpe+1OkSLrml9CXwejWnbf/22jNDJGmphL8MJvCMjK1Cuw4dIE0ow=="
+                deviceCertificate: "dGVzdCDK7WkAukU3oE3a/vjUgdE6viAMr+w36PWumj8aopMKD6T4lYRry7rdY3Iq5LXNrnU5HSrZ6f6jy5NmZan7t57bw3gE0CzAv6voGYednwKG+fN6d1wj8T4dLPP4mzFXYefVFBJckQRKG9moGHQPd4JF9QjceHskOwEm7dOEv8PHyKa6T1OF0ozBh61ZNfLKIBNqZF8K",
+                devicePrivateKey: "s+RKDASnrqfqz9/6rJ3Znagu55BZn3yFqdd5zDDO8Y4=",
+                issuerPublicKey: "AawGZMytNPgOoWWcoM2mLccU7tg0kdyFk+jOPDXqyEZVVeU6g9iDLRy6bSAsbqOZPXaSabCTrdn9fqHbTKY7jQ=="
             )
         }
         catch {
-            deviceChanged(to: .failure("Failed to initialise Local Device: \(error)"))
+            // Handle the error
+            print("Invalid initialisation parameters, please double check the snippet – error:", error)
         }
     }
 

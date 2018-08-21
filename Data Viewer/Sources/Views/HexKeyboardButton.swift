@@ -42,9 +42,7 @@ private extension UIColor {
         let rect = CGRect(origin: .zero, size: CGSize(width: 1.0, height: 1.0))
 
         UIGraphicsBeginImageContext(rect.size)
-
         setFill()
-
         UIRectFill(rect)
 
         let image = UIGraphicsGetImageFromCurrentImageContext()

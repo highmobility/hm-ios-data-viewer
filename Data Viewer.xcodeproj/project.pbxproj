@@ -62,6 +62,7 @@
 /* Begin PBXFileReference section */
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighMobilityManager.swift; sourceTree = "<group>"; };
+		203500CB2126C8FD000B3DE2 /* Data Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Data Viewer.entitlements"; sourceTree = "<group>"; };
 		203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthManager.swift; sourceTree = "<group>"; };
 		203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthUpdatable.swift; sourceTree = "<group>"; };
 		203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		207718B52099EE8A00518AAD /* Data Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				203500CB2126C8FD000B3DE2 /* Data Viewer.entitlements */,
 				207718C92099EE9F00518AAD /* Resources */,
 				207718C82099EE9400518AAD /* Sources */,
 			);
@@ -257,6 +259,9 @@
 						CreatedOnToolsVersion = 9.3;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Multipath = {
 								enabled = 0;
 							};
 						};
