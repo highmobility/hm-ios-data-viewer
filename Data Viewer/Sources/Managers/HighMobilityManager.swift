@@ -83,9 +83,9 @@ class HighMobilityManager {
 
     func downloadDebugCertificates() {
         /*
-         Linked against STAGING: mikk's tester - Maidu test 2
+         Linked against PROD: Miku äpp – Miku auto
          */
-        downloadAccessCertificates(token: "fdb0741e-64f0-4a38-b74d-47e6da2eee0d", completion: deviceChanged)
+        downloadAccessCertificates(token: "7875eabc-f9ee-4953-a79e-ae3cddd06fa3", completion: deviceChanged)
     }
 
     func refreshVehicleStatus() {
@@ -108,7 +108,7 @@ class HighMobilityManager {
     func sendRevoke() {
         do {
             try LocalDevice.shared.link?.sendRevoke {
-                self.deviceChanged(to: .failure("Revoke failed: \($0)"))
+                self.deviceChanged(to: .failure("Revoke failed: \(String(describing: $0))"))
             }
         }
         catch {
@@ -146,7 +146,7 @@ class HighMobilityManager {
     private init() {
         LocalDevice.shared.delegate = self
         LocalDevice.shared.configuration.isAlivePingActive = true
-        LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics]
+        LocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics, .maidu]
 
         // OAuth configuration
         appID = "A0F90F9AB61ED3649ADE165F"
@@ -289,15 +289,15 @@ private extension HighMobilityManager {
 
     func loadDebugSetup() {
         /*
-         Linked against STAGING: mikk's tester - Maidu test 2
+         Linked against PROD: Miku äpp
          */
-        Telematics.urlBasePath = "https://beta.high-mobility.com/"
+        Telematics.urlBasePath = "https://high-mobility.com/"
 
         do {
             try LocalDevice.shared.initialise(
-                deviceCertificate: "dGVzdCDK7WkAukU3oE3a/vjUgdE6viAMr+w36PWumj8aopMKD6T4lYRry7rdY3Iq5LXNrnU5HSrZ6f6jy5NmZan7t57bw3gE0CzAv6voGYednwKG+fN6d1wj8T4dLPP4mzFXYefVFBJckQRKG9moGHQPd4JF9QjceHskOwEm7dOEv8PHyKa6T1OF0ozBh61ZNfLKIBNqZF8K",
-                devicePrivateKey: "s+RKDASnrqfqz9/6rJ3Znagu55BZn3yFqdd5zDDO8Y4=",
-                issuerPublicKey: "AawGZMytNPgOoWWcoM2mLccU7tg0kdyFk+jOPDXqyEZVVeU6g9iDLRy6bSAsbqOZPXaSabCTrdn9fqHbTKY7jQ=="
+                deviceCertificate: "dGVzdIMUuHP08ZO/plI74LstVoNCr2OE9z1hcFhe5Rml98Av68zpFvpCVP5ktGSuia68O4G5cdGx/JNSENBaO2ka/oVO3XKLoHZ7X4DBhTW80ZbLJkuCjbKAqI29ysdiP2IhSx7e/Q2eeU2o6Y9Bfa8++iz31wklhteCbZvQ85XR2FuXZiiRcH0ooEz6qz17VhShwv+uc+J+",
+                devicePrivateKey: "lBEtMI//kYxRQJM0PyHVhfdWCziPXBE9tQnZ6ozRAtA=",
+                issuerPublicKey: "HJS8Wh+Gjh2JRB8pMOmQdTMfVR7JoPLVF1U85xjSg7puYoTwLf+DO9Zs67jw+6pXmtkYxynMQm0rfcBU0XFF5A=="
             )
         }
         catch {
