@@ -16,13 +16,12 @@ class NavigationController: UINavigationController {
         super.init(coder: aDecoder)
 
         HighMobilityManager.shared.deviceUpdatesSender = self
-        HighMobilityManager.shared.oauthUpdatesSender = self
     }
 }
 
 extension NavigationController: DeviceUpdatable {
 
-    func deviceReceived(debugTree: DebugTree) {
+    func deviceReceived(debugTree: HMDebugTree) {
         deviceUpdatables.forEach {
             $0.deviceReceived(debugTree: debugTree)
         }
@@ -35,22 +34,9 @@ extension NavigationController: DeviceUpdatable {
     }
 }
 
-extension NavigationController: OAuthUpdatable {
-
-    func oauthReceivedRedirect(_ result: OAuthManager.RedirectResult) {
-        oauthUpdatables.forEach {
-            $0.oauthReceivedRedirect(result)
-        }
-    }
-}
-
 private extension NavigationController {
 
     var deviceUpdatables: [DeviceUpdatable] {
         return viewControllers.compactMap { $0 as? DeviceUpdatable }
-    }
-
-    var oauthUpdatables: [OAuthUpdatable] {
-        return viewControllers.compactMap { $0 as? OAuthUpdatable }
     }
 }

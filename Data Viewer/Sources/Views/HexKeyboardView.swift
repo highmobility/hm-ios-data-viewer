@@ -34,16 +34,16 @@ class HexKeyboardView: UIView {
     }
 
     @IBAction func honkHornTapped(_ sender: UIButton) {
-        let settings = HonkHornFlashFlights.Settings(honkHornSeconds: 3, flashLightsTimes: nil)
+        let bytes = AAHonkHornFlashLights.honkHorn(seconds: 3, flashLightsXTimes: nil)
 
-        textfield?.text = HonkHornFlashFlights.honkHornFlashLights(settings).hex
+        textfield?.text = bytes?.hex
     }
 
     @IBAction func lockDoorsTapped(_ sender: UIButton) {
-        textfield?.text = DoorLocks.lockUnlock(.lock).hex
+        textfield?.text = AADoorLocks.lockUnlock(.locked).hex
     }
 
     @IBAction func unlockDoorsTapped(_ sender: UIButton) {
-        textfield?.text = DoorLocks.lockUnlock(.unlock).hex
+        textfield?.text = AADoorLocks.lockUnlock(.unlocked).hex
     }
 }

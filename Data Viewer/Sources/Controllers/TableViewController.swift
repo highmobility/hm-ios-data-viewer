@@ -12,7 +12,7 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    private var groups: [DebugTree] = []
+    private var groups: [HMDebugTree] = []
 
 
     // MARK: IBOutlets
@@ -108,17 +108,17 @@ extension TableViewController: DeviceUpdatable {
         // Naah
     }
 
-    func deviceReceived(debugTree: DebugTree) {
-        var matchesTitle: (DebugTree) -> Bool {
+    func deviceReceived(debugTree: HMDebugTree) {
+        var matchesTitle: (HMDebugTree) -> Bool {
             return {
                 return (self.navigationItem.title == $0.label) &&
                     (self.navigationItem.prompt == self.nodesSubTypeValue($0))
             }
         }
 
-        // Check if this is a DebugTree for this controller or not
+        // Check if this is a HMDebugTree for this controller or not
         if self.groups.isEmpty || matchesTitle(debugTree) {
-            matchingDebugTreeReceived(debugTree)
+            matchingHMDebugTreeReceived(debugTree)
         }
         else if let nodes = debugTree.nodes {
             let sub2Nodes = nodes.filter(nodeFilterFunction).reduce(nodes) { $0 + ($1.nodes ?? []) }
@@ -127,14 +127,14 @@ extension TableViewController: DeviceUpdatable {
                 return sub2Nodes.forEach { self.deviceReceived(debugTree: $0) }
             }
 
-            matchingDebugTreeReceived(matchingNode)
+            matchingHMDebugTreeReceived(matchingNode)
         }
     }
 }
 
 private extension TableViewController {
 
-    var node: (IndexPath) -> DebugTree? {
+    var node: (IndexPath) -> HMDebugTree? {
         return {
             guard let nodes = self.groups[$0.section].nodes else {
                 return nil
@@ -144,7 +144,7 @@ private extension TableViewController {
         }
     }
 
-    var nodeFilterFunction: (DebugTree) -> Bool {
+    var nodeFilterFunction: (HMDebugTree) -> Bool {
         return {
             !$0.label.hasPrefix("*") &&
                 !$0.label.contains(" = nil")
@@ -164,7 +164,7 @@ private extension TableViewController {
         })
     }
 
-    func displaySubController(node: DebugTree) {
+    func displaySubController(node: HMDebugTree) {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerID") as? TableViewController else {
             return
         }
@@ -174,7 +174,7 @@ private extension TableViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
 
-    func matchingDebugTreeReceived(_ debugTree: DebugTree) {
+    func matchingHMDebugTreeReceived(_ debugTree: HMDebugTree) {
         navigationItem.title = debugTree.label
         navigationItem.prompt = nodesSubTypeValue(debugTree)
 
@@ -184,7 +184,7 @@ private extension TableViewController {
         tableView.reloadData()
     }
 
-    func nodesSubTypeValue(_ node: DebugTree) -> String? {
+    func nodesSubTypeValue(_ node: HMDebugTree) -> String? {
         if let driverNumber = node.subPropertyValue(named: "driverNumber", filterFunction: nodeFilterFunction) {
             return driverNumber
         }
@@ -228,14 +228,14 @@ private extension TableViewController {
         present(alertController, animated: true, completion: nil)
     }
 
-    func updateGroups(debugTree: DebugTree) {
+    func updateGroups(debugTree: HMDebugTree) {
         // Filter the nodes
         guard let nodes = debugTree.nodes?.filter(nodeFilterFunction) else {
             return self.groups = []
         }
 
         // Extract different "types" of values (just 2 atm)
-        let properties: [DebugTree] = nodes.compactMap {
+        let properties: [HMDebugTree] = nodes.compactMap {
             guard case .leaf = $0 else {
                 return nil
             }
@@ -243,7 +243,7 @@ private extension TableViewController {
             return $0
         }
 
-        let subNodes: [DebugTree] = nodes.compactMap {
+        let subNodes: [HMDebugTree] = nodes.compactMap {
             guard case .node = $0 else {
                 return nil
             }
@@ -251,11 +251,11 @@ private extension TableViewController {
             return $0
         }
 
-        var groups: [DebugTree] = []
+        var groups: [HMDebugTree] = []
 
         // Check what to add
         if properties.count > 0 {
-            groups.append(DebugTree.node(label: "Properties", nodes: properties))
+            groups.append(HMDebugTree.node(label: "Properties", nodes: properties))
         }
 
         if subNodes.count > 0 {

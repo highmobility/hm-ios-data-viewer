@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D7089209B01D900EF7CE1 /* TableViewController.swift */; };
 		202FB07120A33EFE001CD7B5 /* HighMobilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */; };
-		203A4BF220AACDDA00E8B3D1 /* OAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */; };
-		203A4BF520AAF2CB00E8B3D1 /* OAuthUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */; };
 		203A4BF720AB028A00E8B3D1 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */; };
 		2044D1F220B7FEB000C4430B /* HexKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */; };
 		2044D1F420B8007A00C4430B /* HexKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */; };
@@ -63,8 +61,6 @@
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighMobilityManager.swift; sourceTree = "<group>"; };
 		203500CB2126C8FD000B3DE2 /* Data Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Data Viewer.entitlements"; sourceTree = "<group>"; };
-		203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthManager.swift; sourceTree = "<group>"; };
-		203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthUpdatable.swift; sourceTree = "<group>"; };
 		203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexKeyboardView.swift; sourceTree = "<group>"; };
 		2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexKeyboardButton.swift; sourceTree = "<group>"; };
@@ -112,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				207DBAF3209CA23A00134294 /* DeviceUpdatable.swift */,
-				203A4BF420AAF2CB00E8B3D1 /* OAuthUpdatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -122,7 +117,6 @@
 			children = (
 				20AB827420A1C4D500B5DE5C /* CommandsManager.swift */,
 				202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */,
-				203A4BF120AACDDA00E8B3D1 /* OAuthManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -308,9 +302,7 @@
 				207718B92099EE8A00518AAD /* ConnectViewController.swift in Sources */,
 				2085DC06209AE14A009E28C3 /* ConnectionState.swift in Sources */,
 				20AB827520A1C4D500B5DE5C /* CommandsManager.swift in Sources */,
-				203A4BF220AACDDA00E8B3D1 /* OAuthManager.swift in Sources */,
 				200D708A209B01D900EF7CE1 /* TableViewController.swift in Sources */,
-				203A4BF520AAF2CB00E8B3D1 /* OAuthUpdatable.swift in Sources */,
 				207DBAF4209CA23A00134294 /* DeviceUpdatable.swift in Sources */,
 				203A4BF720AB028A00E8B3D1 /* URLRequest+Extensions.swift in Sources */,
 				207DBAF2209C89C800134294 /* NavigationController.swift in Sources */,

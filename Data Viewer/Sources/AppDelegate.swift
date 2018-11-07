@@ -6,6 +6,7 @@
 //  Copyright © 2018 High-Mobility OÜ. All rights reserved.
 //
 
+import HMKit
 import UIKit
 
 
@@ -20,18 +21,6 @@ import UIKit
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let parsedResult = OAuthManager.parseRedirectURL(url)
-
-        switch parsedResult {
-        case .unknown:
-            print("Can't open this app with URL:", url.absoluteString)
-
-            return false
-
-        default:
-            HighMobilityManager.shared.oauthUpdatesSender?.oauthReceivedRedirect(parsedResult)
-
-            return true
-        }
+        return HMOAuth.shared.handleCallback(with: url)
     }
 }

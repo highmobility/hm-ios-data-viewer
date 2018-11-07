@@ -13,5 +13,5 @@ import HMUtilities
 protocol DeviceUpdatable {
 
     func deviceChanged(to result: Result<ConnectionState>)
-    func deviceReceived(debugTree: DebugTree)
+    func deviceReceived(debugTree: HMDebugTree)
 }

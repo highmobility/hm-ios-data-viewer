@@ -7,6 +7,7 @@
 //
 
 import AutoAPI
+import HMKit
 import HMUtilities
 import UIKit
 
@@ -66,7 +67,7 @@ class ConnectViewController: UIViewController {
             present(controller, animated: true, completion: nil)
         }
         else {
-            openOAuthURL()
+            getAccessCertificates()
         }
     }
 
@@ -116,7 +117,7 @@ class ConnectViewController: UIViewController {
 
         // Send the (tableview-) controller the latest "data"
         guard let deviceUpdatable = segue.destination as? DeviceUpdatable,
-            let debugTree = sender as? DebugTree else {
+            let debugTree = sender as? HMDebugTree else {
                 return
         }
 
@@ -158,43 +159,13 @@ extension ConnectViewController: DeviceUpdatable {
         }
     }
 
-    func deviceReceived(debugTree: DebugTree) {
+    func deviceReceived(debugTree: HMDebugTree) {
         // Push the 1st TableViewController if none present
         guard let count = navigationController?.viewControllers.count, count == 1 else {
             return
         }
 
         performSegue(withIdentifier: "showTableViewController", sender: debugTree)
-    }
-}
-
-extension ConnectViewController: OAuthUpdatable {
-
-    func oauthReceivedRedirect(_ result: OAuthManager.RedirectResult) {
-        var text: String
-
-        switch result {
-        case .error(reason: let reason, state: let state):
-            text = "ATC error: " + reason
-
-            if let state = state {
-                text += ", state: " + state
-            }
-
-        case .successful(accessTokenCode: let tokenCode, state: let state):
-            text = "ATC success: " + tokenCode
-
-            if let state = state {
-                text += ", state: " + state
-            }
-
-            HighMobilityManager.shared.downloadAccessCertificates(accessTokenCode: tokenCode, completion: deviceChanged)
-
-        default:
-            text = "Access Token Code Tailor Error"
-        }
-
-        displayText(text)
     }
 }
 
@@ -223,17 +194,39 @@ private extension ConnectViewController {
         }
     }
 
-    func openOAuthURL() {
-        if HighMobilityManager.shared.isRunningDebug {
-            HighMobilityManager.shared.downloadDebugCertificates()
+    func getAccessCertificates() {
+        if HighMobilityManager.shared.skipOAuth {
+            HighMobilityManager.shared.getAccessCertificates()
         }
         else {
-            guard let url = HighMobilityManager.shared.oauthURL else {
+            guard let oauthValues = HighMobilityManager.shared.oauthValues else {
                 return print("Missing OAuthURL")
             }
 
-            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            HMOAuth.shared.launchAuthFlow(requiredValues: oauthValues, optionalValues: ("good", nil), for: self) { authResult in
+                // Combine some informative text
+                var text: String
 
+                switch authResult {
+                case .error(let error, let state):
+                    text = "AT error: \(error)"
+
+                    if let state = state {
+                        text += ", state: " + state
+                    }
+
+                case .success(let accessToken, let state):
+                    text = "AT success: " + accessToken
+
+                    if let state = state {
+                        text += ", state: " + state
+                    }
+
+                    HighMobilityManager.shared.downloadAccessCertificates(token: accessToken, completion: self.deviceChanged)
+                }
+
+                self.displayText(text)
+            }
         }
     }
 
@@ -254,9 +247,4 @@ private extension ConnectViewController {
             self.linkButton.setTitle(text, for: .normal)
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

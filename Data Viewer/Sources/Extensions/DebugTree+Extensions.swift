@@ -1,5 +1,5 @@
 //
-//  DebugTree+Extensions.swift
+//  HMDebugTree+Extensions.swift
 //  Data Viewer
 //
 //  Created by Mikk Rätsep on 04/05/2018.
@@ -10,9 +10,9 @@ import Foundation
 import HMUtilities
 
 
-extension DebugTree {
+extension HMDebugTree {
 
-    var nodes: [DebugTree]? {
+    var nodes: [HMDebugTree]? {
         guard case .node(label: _, nodes: let nodes) = self else {
             return nil
         }
@@ -21,7 +21,7 @@ extension DebugTree {
     }
 
 
-    func subPropertyValue(named: String, filterFunction: ((DebugTree) -> Bool)?) -> String? {
+    func subPropertyValue(named: String, filterFunction: ((HMDebugTree) -> Bool)?) -> String? {
         let function = filterFunction ?? { _ in true }
 
         return nodes?.filter(function).first { $0.label.starts(with: named) }?.label.components(separatedBy: "=").last
