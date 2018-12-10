@@ -11,7 +11,7 @@ import UIKit
 
 extension UITableViewCell {
 
-    var labelTagged: (Int) -> UILabel? {
-        return { self.viewWithTag($0) as? UILabel }
+    func label(tagged tag: Int) -> UILabel? {
+        return viewWithTag(tag) as? UILabel
     }
 }

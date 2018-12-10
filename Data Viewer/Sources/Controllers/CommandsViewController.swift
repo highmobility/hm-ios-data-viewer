@@ -46,10 +46,10 @@ class CommandsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         let command = filteredCommands[indexPath.row]
 
-        cell.labelTagged(100)?.text = command.name
-        cell.labelTagged(101)?.text = "0x" + command.bytes.hex
-        cell.labelTagged(102)?.text = dateFormatter.string(from: command.date)
-        cell.labelTagged(103)?.text = commandDirectionArrow(command)
+        cell.label(tagged: 100)?.text = command.name
+        cell.label(tagged: 101)?.text = "0x" + command.bytes.hex
+        cell.label(tagged: 102)?.text = dateFormatter.string(from: command.date)
+        cell.label(tagged: 103)?.text = commandDirectionArrow(command)
 
         return cell
     }

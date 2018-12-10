@@ -81,7 +81,7 @@ class HighMobilityManager {
     }
 
     func getAccessCertificates() {
-        #warning("Insert an Access Token, or change .skipOAuth to 'true' to use OAuth instead.")
+        #warning("Insert an Access Token, or change .skipOAuth to 'false' to use OAuth instead.")
         downloadAccessCertificates(token: "<#access token#>", completion: deviceChanged)
     }
 
