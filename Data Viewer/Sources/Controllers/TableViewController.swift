@@ -205,7 +205,7 @@ private extension TableViewController {
     func presentSendCommandAlert() {
         let alertController = UIAlertController(title: "", message: "Send a custom command to the connected device", preferredStyle: .alert)
         let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
-            guard let bytes = alertController.textFields?.first?.text?.bytes, bytes.count > 0 else {
+            guard let bytes = alertController.textFields?.first?.text?.hexBytes, bytes.count > 0 else {
                 return
             }
 

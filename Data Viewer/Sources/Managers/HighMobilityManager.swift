@@ -19,14 +19,16 @@ class HighMobilityManager {
     var deviceUpdatesSender: DeviceUpdatable?
     var isBluetoothConnection: Bool = false
 
-    private(set) var vehicleSerial: Data?
-
     var hasAccessCertificates: Bool {
         return HMKit.shared.registeredCertificates.count > 0
     }
 
     var isBluetoothBroadcasting: Bool {
         return (HMKit.shared.state == .broadcasting) && (HMKit.shared.links.count == 0)
+    }
+
+    var vehicleSerial: Data? {
+        return HMKit.shared.registeredCertificates.first?.gainingSerial.data
     }
 
 
@@ -55,8 +57,6 @@ class HighMobilityManager {
                     completion(.failure(reason))
 
                 case .success(let serial):
-                    self.vehicleSerial = serial
-
                     // Set the boradcastingFilter in advance
                     HMKit.shared.configuration.broadcastingFilter = serial
 
@@ -127,9 +127,6 @@ class HighMobilityManager {
         HMKit.shared.delegate = self
         HMKit.shared.configuration.isAlivePingActive = true
         HMKit.shared.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics, .oauth]
-
-        // Other configuration
-        vehicleSerial = HMKit.shared.registeredCertificates.first?.gainingSerial.data
     }
 }
 

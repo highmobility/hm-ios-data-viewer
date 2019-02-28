@@ -44,7 +44,8 @@ private extension AppDelegate {
 
          The "flow" is activated when tapping the "Link Vehicle" button:
             .token simply downloads the Access Certificate from the server
-            .oauth opens SFSafariViewController to authenticate and when successful – download the Access Certificate
+            .oauth opens SFSafariViewController to authenticate and when successful downloads the Access Certificate
+                * remember to set "URL Schemes" in Project > Info > URL Types
         */
 
         <#Set the .accessTokenMethod here#>
