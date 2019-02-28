@@ -197,7 +197,7 @@ private extension ConnectViewController {
     }
 
     func getAccessCertificates() {
-        guard let appDelegate = UIApplication.shared as? AppDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return displayText("Failed to access AppDelegate")
         }
 
