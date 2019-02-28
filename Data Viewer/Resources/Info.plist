@@ -31,7 +31,7 @@
 			<string>com.hm.data-viewer.oauth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.hm.dev.1546587332-9ikvqt0l52n</string>
+				<string>INSERT_CALLBACK_URL_SCHEME</string>
 			</array>
 		</dict>
 	</array>
