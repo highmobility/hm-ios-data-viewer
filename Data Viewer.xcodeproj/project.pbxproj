@@ -28,8 +28,6 @@
 		20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */; };
 		20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; };
 		20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; };
-		20B147A02099F06F00895CCC /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147992099F06D00895CCC /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; };
 		20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; };
@@ -49,7 +47,6 @@
 				20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */,
 				20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */,
 				20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */,
-				20B147A02099F06F00895CCC /* CommonCrypto.framework in Embed Frameworks */,
 				20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -81,7 +78,6 @@
 		20AB827620A1D68100B5DE5C /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
 		20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		20B147982099F06D00895CCC /* HMUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = "<group>"; };
-		20B147992099F06D00895CCC /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
 		20B1479A2099F06E00895CCC /* HMCryptoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = "<group>"; };
 		20B1479B2099F06E00895CCC /* AutoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AutoAPI.framework; sourceTree = "<group>"; };
 		20B1479C2099F06F00895CCC /* HMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMKit.framework; sourceTree = "<group>"; };
@@ -96,7 +92,6 @@
 				20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */,
 				20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */,
 				20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */,
-				20B1479F2099F06F00895CCC /* CommonCrypto.framework in Frameworks */,
 				20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				20B1479B2099F06E00895CCC /* AutoAPI.framework */,
-				20B147992099F06D00895CCC /* CommonCrypto.framework */,
 				20B1479A2099F06E00895CCC /* HMCryptoKit.framework */,
 				20B1479C2099F06F00895CCC /* HMKit.framework */,
 				20B147982099F06D00895CCC /* HMUtilities.framework */,

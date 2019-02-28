@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.0</string>
+	<string>1.6.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -31,7 +31,7 @@
 			<string>com.hm.data-viewer.oauth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.hm.dev.1525347432-8qrtgjeqjfxq</string>
+				<string>com.hm.dev.1546587332-9ikvqt0l52n</string>
 			</array>
 		</dict>
 	</array>

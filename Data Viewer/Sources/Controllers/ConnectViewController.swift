@@ -95,6 +95,8 @@ class ConnectViewController: UIViewController {
             connectionMethodSegment.selectedSegmentIndex = 1
             connectionMethodSegment.isEnabled = false
         #endif
+
+        navigationItem.prompt = nil
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -195,19 +197,21 @@ private extension ConnectViewController {
     }
 
     func getAccessCertificates() {
-        if HighMobilityManager.shared.skipOAuth {
-            HighMobilityManager.shared.getAccessCertificates()
+        guard let appDelegate = UIApplication.shared as? AppDelegate else {
+            return displayText("Failed to access AppDelegate")
         }
-        else {
-            guard let oauthValues = HighMobilityManager.shared.oauthValues else {
-                return print("Missing OAuthURL")
-            }
 
-            HMOAuth.shared.launchAuthFlow(requiredValues: oauthValues, optionalValues: ("good", nil), for: self) { authResult in
+        guard let method = appDelegate.accessTokenMethod else {
+            return displayText("Failed to access .accessTokenMethod")
+        }
+
+        switch method {
+        case .oauth(let requiredValues):
+            HMOAuth.shared.launchAuthFlow(requiredValues: requiredValues, optionalValues: ("goog", nil), for: self) {
                 // Combine some informative text
                 var text: String
 
-                switch authResult {
+                switch $0 {
                 case .error(let error, let state):
                     text = "AT error: \(error)"
 
@@ -215,7 +219,7 @@ private extension ConnectViewController {
                         text += ", state: " + state
                     }
 
-                case .success(let accessToken, let state):
+                case .success(let accessToken, _, _, let state):
                     text = "AT success: " + accessToken
 
                     if let state = state {
@@ -227,6 +231,9 @@ private extension ConnectViewController {
 
                 self.displayText(text)
             }
+
+        case .token(let token):
+            HighMobilityManager.shared.downloadAccessCertificates(token: token, completion: self.deviceChanged)
         }
     }
 

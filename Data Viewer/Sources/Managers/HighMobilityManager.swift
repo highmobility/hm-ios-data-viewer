@@ -17,45 +17,35 @@ class HighMobilityManager {
     static let shared = HighMobilityManager()
 
     var deviceUpdatesSender: DeviceUpdatable?
+    var isBluetoothConnection: Bool = false
 
-    private(set) var oauthValues: HMOAuth.RequiredValues?
     private(set) var vehicleSerial: Data?
 
     var hasAccessCertificates: Bool {
-        return HMLocalDevice.shared.registeredCertificates.count > 0
+        return HMKit.shared.registeredCertificates.count > 0
     }
-
-    var isBluetoothConnection: Bool = false
 
     var isBluetoothBroadcasting: Bool {
-        return (HMLocalDevice.shared.state == .broadcasting) && (HMLocalDevice.shared.link == nil)
-    }
-
-    var skipOAuth: Bool {
-        guard let value = Bundle.main.infoDictionary?["Active Configuration"] as? String else {
-            return false
-        }
-
-        return value == "DEBUG"
+        return (HMKit.shared.state == .broadcasting) && (HMKit.shared.links.count == 0)
     }
 
 
     // MARK: Methods
 
     func clearDatabase() {
-        HMLocalDevice.shared.resetStorage()
+        HMKit.shared.resetStorage()
     }
 
     func disconnectBluetooth() {
         #if !targetEnvironment(simulator)
-            HMLocalDevice.shared.disconnect()
-            HMLocalDevice.shared.stopBroadcasting()
+            HMKit.shared.disconnect()
+            HMKit.shared.stopBroadcasting()
         #endif
     }
 
     func downloadAccessCertificates(token: String, completion: @escaping (Result<ConnectionState>) -> Void) {
         // Clean the DB from old certificates
-        HMLocalDevice.shared.resetStorage()
+        HMKit.shared.resetStorage()
 
         // Download new Access Certificates
         do {
@@ -68,7 +58,7 @@ class HighMobilityManager {
                     self.vehicleSerial = serial
 
                     // Set the boradcastingFilter in advance
-                    HMLocalDevice.shared.configuration.broadcastingFilter = serial
+                    HMKit.shared.configuration.broadcastingFilter = serial
 
                     // Call the completion
                     completion(.success(.certificatesDownloaded))
@@ -80,13 +70,8 @@ class HighMobilityManager {
         }
     }
 
-    func getAccessCertificates() {
-        #warning("Insert an Access Token, or change .skipOAuth to 'false' to use OAuth instead.")
-        downloadAccessCertificates(token: "<#access token#>", completion: deviceChanged)
-    }
-
     func refreshVehicleStatus() {
-        let command = AAVehicleStatus.getVehicleStatus
+        let command = AAVehicleStatus.getVehicleStatus.bytes
 
         sendCommand(command, name: "VehicleStatus")
     }
@@ -104,9 +89,7 @@ class HighMobilityManager {
 
     func sendRevoke() {
         do {
-            try HMLocalDevice.shared.link?.sendRevoke {
-                self.deviceChanged(to: .failure("Revoke failed: \(String(describing: $0))"))
-            }
+            try activeLink?.sendRevoke()
         }
         catch {
             deviceChanged(to: .failure("Revoke failed: \(error)"))
@@ -114,15 +97,15 @@ class HighMobilityManager {
     }
 
     func startBluetoothBroadcasting() throws {
-        guard HMLocalDevice.shared.state == .idle else {
+        guard HMKit.shared.state == .idle else {
             return
         }
 
-        guard HMLocalDevice.shared.certificate != nil else {
+        guard HMKit.shared.certificate != nil else {
             return deviceChanged(to: .failure("HMLocalDevice is missing it's Device Certificate"))
         }
 
-        guard HMLocalDevice.shared.registeredCertificates.count > 0 else {
+        guard HMKit.shared.registeredCertificates.count > 0 else {
             return deviceChanged(to: .failure("Missing Access Certificate(s)"))
         }
 
@@ -131,34 +114,22 @@ class HighMobilityManager {
         }
 
         // Just in case set it again
-        HMLocalDevice.shared.configuration.broadcastingFilter = serial
+        HMKit.shared.configuration.broadcastingFilter = serial
 
         // Finally start
-        try HMLocalDevice.shared.startBroadcasting()
+        try HMKit.shared.startBroadcasting()
     }
 
 
     // MARK: Init
 
     private init() {
-        HMLocalDevice.shared.delegate = self
-        HMLocalDevice.shared.configuration.isAlivePingActive = true
-        HMLocalDevice.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics, .oauth]
-
-        // OAuth configuration
-        #warning("Insert OAuth values and change .skipOAuth to 'false' to use OAuth.")
-        oauthValues = (appID: "<#string#>",
-                       authURI: "<#string#>",
-                       clientID: "<#string#>",
-                       redirectScheme: "<#string#>",
-                       scope: "<#string#>",
-                       tokenURI: "<#string#>")
-
-        // HMLocalDevice configuration
-        loadSetup()
+        HMKit.shared.delegate = self
+        HMKit.shared.configuration.isAlivePingActive = true
+        HMKit.shared.loggingOptions = [.command, .error, .general, .bluetooth, .urlRequests, .telematics, .oauth]
 
         // Other configuration
-        vehicleSerial = HMLocalDevice.shared.registeredCertificates.first?.gainingSerial.data
+        vehicleSerial = HMKit.shared.registeredCertificates.first?.gainingSerial.data
     }
 }
 
@@ -194,8 +165,8 @@ extension HighMobilityManager: HMLinkDelegate {
         deviceChanged(to: .success(.connected))
     }
 
-    func link(_ link: HMLink, stateChanged previousState: HMLinkState) {
-        switch link.state {
+    func link(_ link: HMLink, stateChanged newState: HMLinkState, previousState: HMLinkState) {
+        switch newState {
         case .authenticated:
             deviceChanged(to: .success(.authenticated))
 
@@ -203,27 +174,32 @@ extension HighMobilityManager: HMLinkDelegate {
             break
         }
     }
+
+    func link(_ link: HMLink, receivedError error: HMProtocolError) {
+        print("Link:", link, "received an error:", error)
+    }
 }
 
-extension HighMobilityManager: HMLocalDeviceDelegate {
+extension HighMobilityManager: HMKitDelegate {
 
-    func localDevice(didLoseLink link: HMLink) {
+    func hmKit(didLoseLink link: HMLink) {
         link.delegate = nil
 
         deviceChanged(to: .success(.disconnected))
     }
 
-    func localDevice(didReceiveLink link: HMLink) {
+    func hmKit(didReceiveLink link: HMLink) {
         link.delegate = self
-        link.device.stopBroadcasting()
+
+        HMKit.shared.stopBroadcasting()
 
         deviceChanged(to: .success(.connected))
     }
 
-    func localDevice(stateChanged state: HMLocalDeviceState, oldState: HMLocalDeviceState) {
-        switch state {
+    func hmKit(stateChanged newState: HMKitState, oldState: HMKitState) {
+        switch newState {
         case .broadcasting:
-            deviceChanged(to: .success(.broadcasting(name: HMLocalDevice.shared.name)))
+            deviceChanged(to: .success(.broadcasting(name: HMKit.shared.name)))
 
         default:
             break
@@ -234,7 +210,7 @@ extension HighMobilityManager: HMLocalDeviceDelegate {
 private extension HighMobilityManager {
 
     var activeLink: HMLink? {
-        let link = HMLocalDevice.shared.link
+        let link = HMKit.shared.links.first
 
         guard link?.state == .authenticated else {
             return nil
@@ -258,42 +234,22 @@ private extension HighMobilityManager {
         }
     }
 
-    func loadSetup() {
-        #error("Insert HMLocalDevice initialiser snippet.")
-
-        /*
-
-        Similar to:
-
-        do {
-            try HMLocalDevice.shared.initialise(
-                deviceCertificate: "jFkYjCAWexiDV2kaXntcf4D7IPU0TsoRYAnQ9z6ux+/l8UqyvGcXAmI06Enc1luS/EhrwvHBfhM8WiVB3qcBKHoSX...,
-                devicePrivateKey: "3smaVGuoGa5qx+h6Tv40PNJ0...",
-                issuerPublicKey: "6g6Mn5Kd1+X0c07QwOtcELYP9b03H9SIfdad+KlGoWUjCgq4=..."
-            )
-        }
-        catch {
-            // Handle the error
-            print("Invalid initialisation parameters, please double check the snippet – error:", error)
-        }
-
-         */
-    }
-
     func sendBluetoothCommand(_ command: [UInt8]) {
         guard let link = activeLink else {
             return deviceChanged(to: .failure("Missing authenticated link"))
         }
 
         do {
-            try link.sendCommand(command, sent: {
-                if let error = $0 {
+            try link.send(command: command) {
+                switch $0 {
+                case .error(let error):
                     self.deviceChanged(to: .failure("Failed to send BT command: \(error)"))
-                }
-                else {
+
+                case .success:
                     // Bluetooth returns GOOD response through LinkDelegate
+                    break
                 }
-            })
+            }
         }
         catch {
             deviceChanged(to: .failure("Failed to send BT command: \(error)"))
