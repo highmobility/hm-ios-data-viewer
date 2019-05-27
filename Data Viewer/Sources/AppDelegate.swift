@@ -13,7 +13,7 @@ import UIKit
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
 
     enum AccessTokenMethod {
-        case oauth(HMOAuth.RequiredValues)
+        case oauth(HMOAuthRequiredValues)
         case token(String)
     }
 

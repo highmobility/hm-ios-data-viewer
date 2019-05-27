@@ -207,26 +207,24 @@ private extension ConnectViewController {
 
         switch method {
         case .oauth(let requiredValues):
-            HMOAuth.shared.launchAuthFlow(requiredValues: requiredValues, optionalValues: ("goog", nil), for: self) {
+            let optionalValues = HMOAuthOptionalValues(state: "amaziiing", validity: nil)
+
+            HMOAuth.shared.launchAuthFlow(requiredValues: requiredValues, optionalValues: optionalValues, for: self) {
                 // Combine some informative text
                 var text: String
 
                 switch $0 {
-                case .error(let error, let state):
+                case .failure(let error):
                     text = "AT error: \(error)"
 
-                    if let state = state {
+                case .success(let successValues):
+                    text = "AT success: " + successValues.accessToken
+
+                    if let state = successValues.state {
                         text += ", state: " + state
                     }
 
-                case .success(let accessToken, _, _, let state):
-                    text = "AT success: " + accessToken
-
-                    if let state = state {
-                        text += ", state: " + state
-                    }
-
-                    HighMobilityManager.shared.downloadAccessCertificates(token: accessToken, completion: self.deviceChanged)
+                    HighMobilityManager.shared.downloadAccessCertificates(token: successValues.accessToken, completion: self.deviceChanged)
                 }
 
                 self.displayText(text)

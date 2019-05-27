@@ -53,12 +53,12 @@ class HighMobilityManager {
         do {
             try HMTelematics.downloadAccessCertificate(accessToken: token) {
                 switch $0 {
-                case .failure(let reason):
-                    completion(.failure(reason))
+                case .failure(let error):
+                    completion(.failure("\(error)"))
 
                 case .success(let serial):
                     // Set the boradcastingFilter in advance
-                    HMKit.shared.configuration.broadcastingFilter = serial
+                    HMKit.shared.configuration.broadcastingFilter = serial.data
 
                     // Call the completion
                     completion(.success(.certificatesDownloaded))
@@ -239,7 +239,7 @@ private extension HighMobilityManager {
         do {
             try link.send(command: command) {
                 switch $0 {
-                case .error(let error):
+                case .failure(let error):
                     self.deviceChanged(to: .failure("Failed to send BT command: \(error)"))
 
                 case .success:
@@ -259,17 +259,14 @@ private extension HighMobilityManager {
         }
 
         do {
-            try HMTelematics.sendCommand(command, serial: serial) {
+            try HMTelematics.sendCommand(command, serial: serial.bytes) {
                 switch $0 {
-                case .failure(let text):
-                    self.deviceChanged(to: .failure(text))
+                case .failure(let error):
+                    self.deviceChanged(to: .failure("\(error)"))
 
-                case .success(let data):
-                    guard let command = data else {
-                        return
-                    }
-
-                    self.commandReceived(command.bytes)
+                case .success(let bytes):
+                    print(bytes.hex)
+                    self.commandReceived(bytes)
                 }
             }
         }
