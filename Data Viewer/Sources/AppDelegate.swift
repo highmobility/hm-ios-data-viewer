@@ -62,7 +62,7 @@ private extension AppDelegate {
 
          Example (with invalid values):
              do {
-                 try HMKit.shared.initialise(deviceCertificate: "GzdMivmirTFExolfeyYDmJnwdsLCFgKrQKTdM91UHW/JTEdVcjHRFBxPp8kxhL1PXulMBF6dSOP",
+                 try HMLocalDevice.shared.initialise(deviceCertificate: "GzdMivmirTFExolfeyYDmJnwdsLCFgKrQKTdM91UHW/JTEdVcjHRFBxPp8kxhL1PXulMBF6dSOP",
                                              devicePrivateKey: "v6ZsHyqnqvH7XRYv34jHSg=",
                                              issuerPublicKey: "WtZ5CNQBmwHRtKn4iyMM6OafCsraBSoFfrgDNAmUh4DVYnxq=")
              }
@@ -74,7 +74,7 @@ private extension AppDelegate {
 
         <#Insert the HMKit's INITIALISATION SNIPPET here#>
 
-        guard HMKit.shared.certificate != nil else {
+        guard HMLocalDevice.shared.certificate != nil else {
             fatalError("Need to initialise the HMKit")
         }
     }

@@ -22,14 +22,18 @@ class NavigationController: UINavigationController {
 extension NavigationController: DeviceUpdatable {
 
     func deviceReceived(debugTree: HMDebugTree) {
-        deviceUpdatables.forEach {
-            $0.deviceReceived(debugTree: debugTree)
+        OperationQueue.main.addOperation {
+            self.deviceUpdatables.forEach {
+                $0.deviceReceived(debugTree: debugTree)
+            }
         }
     }
 
     func deviceChanged(to result: Result<ConnectionState>) {
-        deviceUpdatables.forEach {
-            $0.deviceChanged(to: result)
+        OperationQueue.main.addOperation {
+            self.deviceUpdatables.forEach {
+                $0.deviceChanged(to: result)
+            }
         }
     }
 }

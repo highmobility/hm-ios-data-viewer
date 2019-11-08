@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,15 +26,12 @@
 		20AB827520A1C4D500B5DE5C /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827420A1C4D500B5DE5C /* CommandsManager.swift */; };
 		20AB827720A1D68100B5DE5C /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827620A1D68100B5DE5C /* CommandInfo.swift */; };
 		20AB827920A1D6A000B5DE5C /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */; };
-		20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; };
-		20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B147982099F06D00895CCC /* HMUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; };
-		20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479A2099F06E00895CCC /* HMCryptoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; };
-		20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479B2099F06E00895CCC /* AutoAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; };
-		20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20B1479C2099F06F00895CCC /* HMKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20B147AC2099F73000895CCC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B147AB2099F73000895CCC /* Result.swift */; };
+		20E381BD2375A33A00CD0418 /* HMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E381BB2375A33700CD0418 /* HMKit.xcframework */; };
+		20E381BE2375A33A00CD0418 /* HMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 20E381BB2375A33700CD0418 /* HMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		20E381C12375A35600CD0418 /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 20E381C02375A35600CD0418 /* HMUtilities */; };
+		20E381C42375A60700CD0418 /* HMCryptoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 20E381C32375A60700CD0418 /* HMCryptoKit */; };
+		20E381C72375A62700CD0418 /* AutoAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 20E381C62375A62700CD0418 /* AutoAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,10 +41,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				20B147A42099F06F00895CCC /* AutoAPI.framework in Embed Frameworks */,
-				20B147A62099F06F00895CCC /* HMKit.framework in Embed Frameworks */,
-				20B147A22099F06F00895CCC /* HMCryptoKit.framework in Embed Frameworks */,
-				20B1479E2099F06F00895CCC /* HMUtilities.framework in Embed Frameworks */,
+				20E381BE2375A33A00CD0418 /* HMKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,7 +51,6 @@
 /* Begin PBXFileReference section */
 		200D7089209B01D900EF7CE1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		202FB07020A33EFE001CD7B5 /* HighMobilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighMobilityManager.swift; sourceTree = "<group>"; };
-		203500CB2126C8FD000B3DE2 /* Data Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Data Viewer.entitlements"; sourceTree = "<group>"; };
 		203A4BF620AB028A00E8B3D1 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		2044D1F120B7FEB000C4430B /* HexKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexKeyboardView.swift; sourceTree = "<group>"; };
 		2044D1F320B8007A00C4430B /* HexKeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexKeyboardButton.swift; sourceTree = "<group>"; };
@@ -77,11 +70,8 @@
 		20AB827420A1C4D500B5DE5C /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		20AB827620A1D68100B5DE5C /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
 		20AB827820A1D6A000B5DE5C /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
-		20B147982099F06D00895CCC /* HMUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = "<group>"; };
-		20B1479A2099F06E00895CCC /* HMCryptoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = "<group>"; };
-		20B1479B2099F06E00895CCC /* AutoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AutoAPI.framework; sourceTree = "<group>"; };
-		20B1479C2099F06F00895CCC /* HMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HMKit.framework; sourceTree = "<group>"; };
 		20B147AB2099F73000895CCC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		20E381BB2375A33700CD0418 /* HMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = HMKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +79,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20B147A32099F06F00895CCC /* AutoAPI.framework in Frameworks */,
-				20B147A52099F06F00895CCC /* HMKit.framework in Frameworks */,
-				20B147A12099F06F00895CCC /* HMCryptoKit.framework in Frameworks */,
-				20B1479D2099F06F00895CCC /* HMUtilities.framework in Frameworks */,
+				20E381C12375A35600CD0418 /* HMUtilities in Frameworks */,
+				20E381C42375A60700CD0418 /* HMCryptoKit in Frameworks */,
+				20E381C72375A62700CD0418 /* AutoAPI in Frameworks */,
+				20E381BD2375A33A00CD0418 /* HMKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,10 +118,7 @@
 		207718AA2099EE8900518AAD = {
 			isa = PBXGroup;
 			children = (
-				20B1479B2099F06E00895CCC /* AutoAPI.framework */,
-				20B1479A2099F06E00895CCC /* HMCryptoKit.framework */,
-				20B1479C2099F06F00895CCC /* HMKit.framework */,
-				20B147982099F06D00895CCC /* HMUtilities.framework */,
+				20E381BB2375A33700CD0418 /* HMKit.xcframework */,
 				207718B52099EE8A00518AAD /* Data Viewer */,
 				207718B42099EE8A00518AAD /* Products */,
 			);
@@ -148,7 +135,6 @@
 		207718B52099EE8A00518AAD /* Data Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				203500CB2126C8FD000B3DE2 /* Data Viewer.entitlements */,
 				207718C92099EE9F00518AAD /* Resources */,
 				207718C82099EE9400518AAD /* Sources */,
 			);
@@ -229,6 +215,11 @@
 			dependencies = (
 			);
 			name = "Data Viewer";
+			packageProductDependencies = (
+				20E381C02375A35600CD0418 /* HMUtilities */,
+				20E381C32375A60700CD0418 /* HMCryptoKit */,
+				20E381C62375A62700CD0418 /* AutoAPI */,
+			);
 			productName = "Data Viewer";
 			productReference = 207718B32099EE8A00518AAD /* Data Viewer.app */;
 			productType = "com.apple.product-type.application";
@@ -266,6 +257,11 @@
 				Base,
 			);
 			mainGroup = 207718AA2099EE8900518AAD;
+			packageReferences = (
+				20E381BF2375A35600CD0418 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */,
+				20E381C22375A60700CD0418 /* XCRemoteSwiftPackageReference "hm-crypto-kit-swift" */,
+				20E381C52375A62700CD0418 /* XCRemoteSwiftPackageReference "hm-auto-api-swift" */,
+			);
 			productRefGroup = 207718B42099EE8A00518AAD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -465,6 +461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hm.data-viewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -488,6 +485,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hm.data-viewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -517,6 +515,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20E381BF2375A35600CD0418 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:highmobility/hm-utilities-swift.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.4.5;
+			};
+		};
+		20E381C22375A60700CD0418 /* XCRemoteSwiftPackageReference "hm-crypto-kit-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:highmobility/hm-crypto-kit-swift.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.2.13;
+			};
+		};
+		20E381C52375A62700CD0418 /* XCRemoteSwiftPackageReference "hm-auto-api-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:highmobility/hm-auto-api-swift.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 10.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20E381C02375A35600CD0418 /* HMUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20E381BF2375A35600CD0418 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */;
+			productName = HMUtilities;
+		};
+		20E381C32375A60700CD0418 /* HMCryptoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20E381C22375A60700CD0418 /* XCRemoteSwiftPackageReference "hm-crypto-kit-swift" */;
+			productName = HMCryptoKit;
+		};
+		20E381C62375A62700CD0418 /* AutoAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20E381C52375A62700CD0418 /* XCRemoteSwiftPackageReference "hm-auto-api-swift" */;
+			productName = AutoAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 207718AB2099EE8900518AAD /* Project object */;
 }
