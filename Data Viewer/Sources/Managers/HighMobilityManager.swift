@@ -71,7 +71,7 @@ class HighMobilityManager {
     }
 
     func refreshVehicleStatus() {
-        let command = AAVehicleStatus.getVehicleStatus.bytes
+        let command = AAVehicleStatus.getVehicleStatus()
 
         sendCommand(command, name: "VehicleStatus")
     }
@@ -152,7 +152,7 @@ extension HighMobilityManager: HMLinkDelegate {
         }
     }
 
-    func link(_ link: HMLink, commandReceived bytes: [UInt8]) {
+    func link(_ link: HMLink, commandReceived bytes: [UInt8], contentType: HMContainerContentType, requestID: [UInt8]) {
         commandReceived(bytes)
     }
 
@@ -224,7 +224,7 @@ private extension HighMobilityManager {
             return deviceChanged(to: .failure("Failed to parse AutoAPI command."))
         }
 
-        CommandsManager.shared.addReceivedCommand(named: command.debugTree.label, bytes: bytes)
+        CommandsManager.shared.addReceivedCommand(named: "\(type(of: command))", bytes: bytes)
 
         OperationQueue.main.addOperation {
             self.deviceReceived(debugTree: command.debugTree)
@@ -264,9 +264,8 @@ private extension HighMobilityManager {
                 case .failure(let error):
                     self.deviceChanged(to: .failure("\(error)"))
 
-                case .success(let bytes):
-                    print(bytes.hex)
-                    self.commandReceived(bytes)
+                case .success(let command, _, _):
+                    self.commandReceived(command)
                 }
             }
         }
