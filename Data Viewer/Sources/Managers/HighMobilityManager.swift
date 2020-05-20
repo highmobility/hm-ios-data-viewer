@@ -264,8 +264,12 @@ private extension HighMobilityManager {
                 case .failure(let error):
                     self.deviceChanged(to: .failure("\(error)"))
 
-                case .success(let command, _, _):
-                    self.commandReceived(command)
+                case .success(let success):
+                    guard success.contentType == .autoAPI else {
+                        return self.deviceChanged(to: .failure("invalid 'contentType' for received data"))
+                    }
+
+                    self.commandReceived(success.response)
                 }
             }
         }
