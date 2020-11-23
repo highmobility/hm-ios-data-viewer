@@ -220,14 +220,14 @@ private extension HighMobilityManager {
     // MARK: Methods
 
     func commandReceived(_ bytes: [UInt8]) {
-        guard let command = AAAutoAPI.parseBinary(bytes) else {
+        guard let capa = try? AAAutoAPI.parseBytes(bytes) else {
             return deviceChanged(to: .failure("Failed to parse AutoAPI command."))
         }
 
-        CommandsManager.shared.addReceivedCommand(named: "\(type(of: command))", bytes: bytes)
+        CommandsManager.shared.addReceivedCommand(named: "\(type(of: capa))", bytes: bytes)
 
         OperationQueue.main.addOperation {
-            self.deviceReceived(debugTree: command.debugTree)
+            self.deviceReceived(debugTree: HMDebugTree(capa))
         }
     }
 

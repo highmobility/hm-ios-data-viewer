@@ -34,9 +34,9 @@ class HexKeyboardView: UIView {
     }
 
     @IBAction func honkHornTapped(_ sender: UIButton) {
-        let command = AAHonkHornFlashLights.honkFlash(honkSeconds: 3, flashTimes: nil)
+        let command = AAHonkHornFlashLights.honkFlash(flashTimes: nil, honkTime: .init(value: 3.0, unit: .seconds))
 
-        textfield?.text = command?.hex
+        textfield?.text = command.hex
     }
 
     @IBAction func lockDoorsTapped(_ sender: UIButton) {
