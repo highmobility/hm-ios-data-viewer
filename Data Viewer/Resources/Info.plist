@@ -31,7 +31,11 @@
 			<string>com.hm.data-viewer.oauth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>PASTE THE  R E D I R E C T  S C H E M E  HERE</string>
+				<string>PASTE</string>
+				<string>THE</string>
+				<string>REDIRECT</string>
+				<string>SCHEMA</string>
+				<string>HERE</string>
 			</array>
 		</dict>
 	</array>
